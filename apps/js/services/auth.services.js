@@ -20,14 +20,24 @@ function AuthService($http, $q, StorageService, $state, helperServices) {
 
     function login(user) {
         var def = $q.defer();
-        var a = helperServices.url;
+        var a = helperServices.url+"/login";
         var b = getHeader();
         $http({
             method: 'Get',
             url: helperServices.url,
             headers: getHeader()
         }).then(res => {
-
+            var user = {
+                "IdUser": "2",
+                "Username": "Kristt26",
+                "Email": "kristt26@gmail.com",
+                "Nama": "Candra Putra Wijaksana",
+                "Role": "admin",
+                "Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIiLCJVc2VybmFtZSI6IktyaXN0dDI2IiwiRW1haWwiOiJrcmlzdHQyNkBnbWFpbC5jb20iLCJOYW1hIjoiQ2FuZHJhIFB1dHJhIFdpamFrc2FuYSIsIlJvbGUiOiJBZG1pbiIsInRpbWUiOjE1Njc5NTg0MjR9.D7k5f7QNrCgZvIBEy2jG3-F72IdbTDVfv0zACH4y7Lw"
+            }
+            StorageService.addObject("user", user);
+    
+            def.resolve(user);
 
          }, err => { 
 
@@ -36,7 +46,7 @@ function AuthService($http, $q, StorageService, $state, helperServices) {
                 "Username": "Kristt26",
                 "Email": "kristt26@gmail.com",
                 "Nama": "Candra Putra Wijaksana",
-                "Role": "CustomerService",
+                "Role": "admin",
                 "Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIiLCJVc2VybmFtZSI6IktyaXN0dDI2IiwiRW1haWwiOiJrcmlzdHQyNkBnbWFpbC5jb20iLCJOYW1hIjoiQ2FuZHJhIFB1dHJhIFdpamFrc2FuYSIsIlJvbGUiOiJBZG1pbiIsInRpbWUiOjE1Njc5NTg0MjR9.D7k5f7QNrCgZvIBEy2jG3-F72IdbTDVfv0zACH4y7Lw"
             }
             StorageService.addObject("user", user);

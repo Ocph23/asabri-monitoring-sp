@@ -1,0 +1,47 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak style="min-width: 400px">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Tambah Mitra Bayar</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-content layout-padding style="padding: 20px;">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Bank</label>
+                    <md-select ng-model="model.idBank">
+                        <md-option ng-repeat="state in banks" value="{{state.idBank}}">
+                            {{state.nama}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Nama Mitra Bayar</label>
+                    <input ng-model="model.nama">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input ng-model="model.email">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Alamat</label>
+                    <textarea ng-model="model.alamat" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+
+            </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Batal
+            </md-button>
+            <md-button ng-click="answer('useful',model)">
+                Simpan
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

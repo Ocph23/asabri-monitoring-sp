@@ -6,7 +6,7 @@ angular.module("helper.service",[])
 
 function helperServices (){
     var service={};
-    service.url="http://localhost";
+    service.url="http://localhost:5501";
 
     return {url:service.url};
 }

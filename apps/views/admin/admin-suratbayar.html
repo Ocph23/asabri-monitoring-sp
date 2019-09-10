@@ -1,0 +1,35 @@
+<h1>Surat Pembayaran</h1>
+<div class="fab-container">
+        <md-button class="md-fab md-primary fab-right" aria-label="Use Android" ng-click="change($event,null)">
+                <md-icon md-font-icon="fa fa-plus"></md-icon>
+            </md-button>
+</div>
+<table class="table table-striped" cellspacing="0" width="100%" datatable="ng">
+    <thead>
+        <tr>
+            <th>NO</th>
+            <th>Nomor SP</th>
+            <th>Kode Bayar</th>
+            <th>Bank</th>
+            <th>Nasabah</th>
+            <th>Masa Berlaku</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="data in datas">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ data.nomorSurat}}</td>
+            <td>{{ data.kodeBayar }}</td>
+            <td>{{ data.bank.nama }}</td>
+            <td>{{ data.nasabah.nama }}</td>
+            <td>{{ data.masaBerlaku.dari|date:'dd MMM yyyy' }}-{{ data.masaBerlaku.sampai |date:'dd MMM yyyy'  }}</td>
+            <td>{{ data.status}}</td>
+            <th>
+                    <a href="" ng-click="change($event,data)">Edit</a> | <a ng-click="delete(data)">Delete</a>
+            </th>
+        </tr>
+    </tbody>
+</table>
+

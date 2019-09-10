@@ -5,11 +5,9 @@ angular
     controller: function ($scope, AuthService) {
       this.userName = AuthService.getUserName();
       $scope.logoff = function () {
-        AuthService.logoff();
+        AuthService.logOff();
       }
 
     },
-    template: `{{$ctrl.userName}}
-    <span>| <a ng-click="logoff()">Log Off</a></span>
-    `
+    template: `<a href="" ng-click="logoff()">{{$ctrl.userName}}</a> <a href="" ng-click="logoff()"> Log Off</a>`
   });
