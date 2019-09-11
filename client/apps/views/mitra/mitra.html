@@ -8,24 +8,27 @@
             <md-content ng-controller="LeftCtrl">
                 <div class="sidenav">
                     <md-list flex>
-                        <md-list-item>
-                            <md-icon md-font-icon="fa fa-home"></md-icon>
-                            <span flex> <a ui-sref="admin-home">Home</a></span>
-                        </md-list-item>
-                        <md-list-item ng-click="sp = !sp">
-                            <md-icon md-font-icon="fa fa-file"></md-icon>
-                            <span flex><a ui-sref="admin-home">Surat Bayar</a></span>
-                            <md-icon ng-show="!sp">expand_more</md-icon>
-                            <md-icon ng-show="sp">expand_less</md-icon>
-                        </md-list-item>
-                        <div style="background: rgb(255, 255, 255)">
-                            <md-list-item ng-show="sp" class="item" ui-sref="mitra-cari-surat-bayar">
-                                <span flex-offset="15">Cari</span>
-                            </md-list-item>
-                            <md-list-item ng-show="sp" class="item" ui-sref="mitra-surat-bayar">
-                                <span flex-offset="15">Data</span>
-                            </md-list-item>
-                        </div>
+                        <ul>
+                            <li ui-sref="mitra-home"><a><i class="fa fa-home"></i>Home</a></li>
+                            <li ng-click="sp = !sp"><a href=""><i class="fa fa-list-alt"></i>Surat Bayar</a>
+                                <md-icon ng-show="!sp">expand_more</md-icon>
+                                <md-icon ng-show="sp">expand_less</md-icon>
+                            </li>
+                            <ul ng-show="sp">
+                                <li ui-sref="mitra-cari"><a href=""><i class="fa fa-new"></i>Cari</a></li>
+                                <li ui-sref="mitra-suratbayar"><a href=""><i class="fa fa-new"></i>Data</a></li>
+                            </ul>
+
+                            <li ng-click="lp = !lp"><a href=""><i class="fa fa-file"></i>Laporan</a>
+                                <md-icon ng-show="!lp">expand_more</md-icon>
+                                <md-icon ng-show="lp">expand_less</md-icon>
+
+                            </li>
+                            <ul ng-show="lp">
+                                <li><a href="" ng-clik=""><i class="fa fa-home"></i>Baru</a></li>
+                            </ul>
+                        </ul>
+
                     </md-list>
                 </div>
 

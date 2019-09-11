@@ -33,6 +33,7 @@ body {
 }
 
 .account {
+  position: relative;
   background-image: url(../../images/flat-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,10 +42,25 @@ body {
 }
 
 .account .login {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 400px;
   height: 400px;
   margin: auto;
   padding: 20px;
+  background-color: #ffffffb7;
+}
+
+.account .login button {
+  margin-top: 25px;
+}
+
+.account .login .md-no-momentum {
+  background-color: transparent;
 }
 
 .fa {
@@ -59,6 +75,16 @@ md-icon {
 .fab-container {
   position: absolute;
   right: 20px;
+}
+
+.fab-container .md-button {
+  margin: 1px;
+}
+
+.md-button,
+.md-fab {
+  width: 45px !important;
+  height: 45px !important;
 }
 
 .navbar {
@@ -84,6 +110,45 @@ md-icon {
   color: black;
 }
 
+.home-main {
+  height: 100vh;
+  background-image: url("../images/front.jpg");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.home-main .login-btn {
+  margin: 0;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: #002e5e;
+  width: 300px !important;
+  font-size: 35px;
+  padding: 5px;
+  vertical-align: center;
+  width: 75px;
+}
+
+.home-main .header-logo {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+
+.home-main .motto {
+  color: #ffde4d;
+  font-size: 50px;
+  font-family: "Montserrat";
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  text-shadow: 1px 2px 3px #818181;
+}
+
 .sidenav {
   height: 100%;
   /* Full-height: remove this if you want "auto" height */
@@ -92,15 +157,34 @@ md-icon {
   left: 0;
 }
 
-.sidenav md-list {
-  border-top: 2px solid #dad8d8 !important;
+.sidenav .flex ul {
+  margin-left: 20px;
 }
 
-.sidenav md-list md-list-item {
+.sidenav .flex ul li {
+  padding: 15px;
   border-bottom: 0.5px solid #eeecec !important;
 }
 
-.sidenav md-list md-list-item a {
+.sidenav .flex ul li a {
+  width: 400px !important;
+  color: silver !important;
+}
+
+.sidenav .flex ul li i {
+  margin-right: 5px;
+}
+
+.sidenav .flex ul li:hover {
+  color: white;
+  background-color: #f8756b;
+}
+
+.sidenav .flex md-list-item {
+  border-bottom: 0.5px solid #eeecec !important;
+}
+
+.sidenav .flex md-list-item a {
   text-decoration: none;
   font-size: 15px;
   color: #818181;
@@ -108,12 +192,13 @@ md-icon {
   padding: 15px 10px;
 }
 
-.sidenav md-list md-list-item:hover {
+.sidenav .flex md-list-item:hover {
   color: white;
   background-color: #f8756b;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   text-align: left;
   padding: 15px !important;
 }
@@ -152,16 +237,61 @@ md-menu md-menu-content {
   margin-left: 30px;
 }
 
+.md-datepicker-input-container {
+  width: 150px !important;
+}
+
 .sb {
   position: relative;
 }
 
 .sb .sb-item .sb-title {
+  margin-bottom: 25px;
   font-size: 20px;
-  text-shadow: 2px 2px 4px  #818181;
+  text-shadow: 2px 2px 4px #818181;
 }
 
 .sb .sb-item .sb-content {
   padding: 50px;
+}
+
+.img-container {
+  height: 100%;
+  position: relative;
+}
+
+.img-container .img-item {
+  margin-top: 10px;
+}
+
+.img-container .img-item img {
+  height: 35 px;
+}
+
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+  .print {
+    display: block;
+  }
+  .fab-right,
+  .dataTables_filter,
+  .dataTables_paginate,
+  .dataTables_length {
+    display: none !important;
+  }
+  .data-content {
+    margin: 0px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    border: none;
+  }
+  h1 {
+    font-size: 20px !important;
+  }
+  body {
+    font-size: 12px !important;
+  }
 }
 /*# sourceMappingURL=style.css.map */

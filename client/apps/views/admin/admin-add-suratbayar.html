@@ -10,9 +10,9 @@
           </div>
           <md-input-container class="md-block">
             <label>Nomor Surat</label>
-            <input ng-model="model.nama">
+            <input ng-model="model.nomorSurat">
           </md-input-container>
-          <div layout-gt-xs="row">
+          <div layout-gt-sm="row">
             <md-input-container>
               <label>Dari Tanggal</label>
               <md-datepicker ng-model="model.masaBerlaku.dari" aria-label="Enter date"></md-datepicker>
@@ -39,8 +39,8 @@
             <input ng-model="model.jumlah" type="number">
           </md-input-container>
           <md-input-container class="md-block">
-            <label>Terbilang</label>
-            <input ng-model="model.jumlah" type="number" disabled>
+            <h6>{{getTerbilang(model.jumlah)}}</h6>
+            
           </md-input-container>
         </div>
         <div flex="" class="sb-content">
@@ -77,7 +77,7 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Alamat</label>
-            <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            <textarea ng-model="model.nasabah.alamat" md-maxlength="150" rows="5" md-select-on-focus></textarea>
           </md-input-container>
         </div>
       </div>

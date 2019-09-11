@@ -4,7 +4,7 @@
   "description": "aplikasi monitoring",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx nodemon index.js -w"
   },
   "keywords": [
     "template"
@@ -12,17 +12,21 @@
   "author": "ocph23@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.4.1",
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.8",
-    "angular-aria": "1.7.8",
-    "angular-messages": "1.7.8",
     "angular-animate": "1.7.8",
-    "angular-material": "1.1.19",
+    "angular-aria": "1.7.8",
     "angular-datatables": "^0.6.2",
     "angular-local-storage": "^0.7.1",
+    "angular-material": "1.1.19",
+    "angular-messages": "1.7.8",
     "angular-route": "1.7.8",
+    "express": "^4.17.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.2",
     "swangular": "^1.4.3",
-    "font-awesome": "^4.7.0"
+    "terbilang-js": "^1.0.1"
   }
 }

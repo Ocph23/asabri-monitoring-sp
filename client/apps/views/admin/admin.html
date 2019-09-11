@@ -1,0 +1,83 @@
+<div layout="column" style="height:100vh;" ng-cloak>
+    <section layout="row" class="left-side" flex>
+        <md-sidenav class="md-sidenav-left print-hide" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+            md-whiteframe="4">
+            <md-toolbar class="md-theme-indigo">
+                <div class="img-container">
+                    <div class="img-item">
+                        <img src="../../../images/logo_header.png" />
+                    </div>
+                </div>
+            </md-toolbar>
+            <md-content ng-controller="LeftCtrl">
+                <div class="sidenav">
+                    <md-list flex>
+                        <ul>
+                            <li ui-sref="admin-home"><a ><i class="fa fa-home"></i>Home</a></li>
+                            <li ui-sref="admin-bank"><a href="" ><i class="fa fa-building"></i>Bank</a></li>
+                            <li ui-sref="admin-mitra-bayar"><a ><i class="fa fa-link"></i>Mitra Bayar</a></li>
+                            <li ng-click="sp = !sp"><a href=""><i class="fa fa-list-alt"></i>Surat Bayar</a>
+                                <md-icon ng-show="!sp">expand_more</md-icon>
+                                <md-icon ng-show="sp">expand_less</md-icon>
+                            </li>
+                            <ul ng-show="sp">
+                                    <li ui-sref="admin-add-surat-bayar"><a href="" ><i class="fa fa-new"></i>Baru</a></li>
+                                    <li ui-sref="admin-surat-bayar"><a href="" ><i class="fa fa-new"></i>Data</a></li>
+                                </ul>
+
+                            <li ng-click="lp = !lp"><a href=""><i class="fa fa-file"></i>Laporan</a>
+                                <md-icon ng-show="!lp">expand_more</md-icon>
+                                <md-icon ng-show="lp">expand_less</md-icon>
+                             
+                            </li>
+                            <ul ng-show="lp">
+                                    <li><a href="" ng-clik=""><i class="fa fa-home"></i>Baru</a></li>
+                                </ul>
+                        </ul>
+
+                    </md-list>
+                </div>
+
+            </md-content>
+
+        </md-sidenav>
+
+        <md-content flex>
+            <div class="navbar print-hide">
+                <a href="" ng-click="toggleLeft()"><i class="fa fa-list"></i></a>
+                <ul style="position:fixed;right:0px">
+                    <userlogin></userlogin>
+                </ul>
+            </div>
+
+            <div layout="column" layout-padding layout-align="top center">
+                <md-card class="data-content">
+                    <md-card-content>
+                        <ui-view></ui-view>
+
+                    </md-card-content>
+                </md-card>
+            </div>
+
+        </md-content>
+
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">Sidenav Right</h1>
+            </md-toolbar>
+            <md-content ng-controller="RightCtrl" layout-padding>
+                <form>
+                    <md-input-container>
+                        <label for="testInput">Test input</label>
+                        <input type="text" id="testInput" ng-model="data" md-autofocus>
+                    </md-input-container>
+                </form>
+                <md-button ng-click="close()" class="md-primary">
+                    Close Sidenav Right
+                </md-button>
+            </md-content>
+        </md-sidenav>
+    </section>
+
+</div>

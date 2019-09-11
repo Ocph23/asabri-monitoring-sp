@@ -11,6 +11,7 @@ angular
 
   .controller("adminSuratBayarController",adminSuratBayarController)
   .controller("adminAddSuratBayarController",adminAddSuratBayarController)
+  .controller("adminEditSuratBayarController",adminEditSuratBayarController)
   ;
 
 function adminController($scope,$mdDialog) {
@@ -43,6 +44,12 @@ function adminBankController($scope, $state, message, $mdDialog, BankService) {
   BankService.get().then(x => {
     $scope.datas = x;
   });
+
+
+  $scope.print=function()
+  {
+    window.print();
+  }
 
   $scope.change = function(ev, data) {
     $mdDialog
@@ -141,9 +148,7 @@ function MitraBayarDialogController($scope, $mdDialog, dataToPass) {
   $scope.answer = function(model) {
     $mdDialog.hide(model);
   };
-  BankService.get().then(x=>{
-    $scope.banks= x;
-  });
+  
 }
 
 function adminSuratBayarController($scope,SuratBayarService){
@@ -152,7 +157,25 @@ function adminSuratBayarController($scope,SuratBayarService){
   });
 }
 
-function adminAddSuratBayarController()
+function adminAddSuratBayarController($scope,BankService)
 {
+  BankService.get().then(banks=>{
+    $scope.banks=banks;
+  });
+}
+
+function adminEditSuratBayarController($scope,$stateParams, $state,  SuratBayarService, BankService)
+{
+  var id = $stateParams.id;
+  BankService.get().then(banks=>{
+    $scope.banks=banks;
+    SuratBayarService.getById(id).then(x=>{
+      $scope.model=x;
+    });
+  });
+  
+  $scope.getTerbilang=function(data){
+      return terbilang(data)+" Rupiah";
+  }
 
 }

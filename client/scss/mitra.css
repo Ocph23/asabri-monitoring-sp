@@ -1,0 +1,30 @@
+.mitra-cari {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  text-shadow: 1px 1px 1px silver;
+}
+
+.mitra-cari .cari {
+  text-align: center;
+}
+
+.mitra-cari .mitra-cari-container input {
+  margin-top: 30px;
+  font-size: 25px !important;
+}
+
+.mitra-cari .mitra-cari-options button {
+  width: 120px !important;
+  margin: 1px !important;
+}
+
+.mitra-cari .mitra-cari-options .error {
+  margin-top: 20px;
+  font-size: 35px;
+  font-family: "Monserrat";
+  color: red;
+}
+/*# sourceMappingURL=mitra.css.map */

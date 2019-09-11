@@ -27,7 +27,7 @@
             <td>{{ data.masaBerlaku.dari|date:'dd MMM yyyy' }}-{{ data.masaBerlaku.sampai |date:'dd MMM yyyy'  }}</td>
             <td>{{ data.status}}</td>
             <th>
-                    <a href="" ng-click="change($event,data)">Edit</a> | <a ng-click="delete(data)">Delete</a>
+                    <a href="" ui-sref="admin-edit-surat-bayar({id:data.idSuratBayar})">Edit</a> | <a ng-click="delete(data)">Delete</a>
             </th>
         </tr>
     </tbody>
