@@ -1,16 +1,20 @@
+
+
+
 <h1>Surat Pembayaran</h1>
 <div class="fab-container">
         <md-button class="md-fab md-primary fab-right" aria-label="Use Android" ng-click="change($event,null)">
                 <md-icon md-font-icon="fa fa-plus"></md-icon>
             </md-button>
 </div>
+
 <table class="table table-striped" cellspacing="0" width="100%" datatable="ng">
+      
     <thead>
         <tr>
-            <th>NO</th>
+            <th>No</th>
             <th>Nomor SP</th>
             <th>Kode Bayar</th>
-            <th>Bank</th>
             <th>Nasabah</th>
             <th>Masa Berlaku</th>
             <th>Status</th>
@@ -22,12 +26,13 @@
             <td>{{ $index + 1 }}</td>
             <td>{{ data.nomorSurat}}</td>
             <td>{{ data.kodeBayar }}</td>
-            <td>{{ data.bank.nama }}</td>
             <td>{{ data.nasabah.nama }}</td>
-            <td>{{ data.masaBerlaku.dari|date:'dd MMM yyyy' }}-{{ data.masaBerlaku.sampai |date:'dd MMM yyyy'  }}</td>
+            <td>{{ data.berlakuDariTanggal|date:'dd MMM yyyy'}} - {{data.berlakuSampaiTanggal |date:'dd MMM yyyy'}}</td>
             <td>{{ data.status}}</td>
             <th>
-                    <a href="" ui-sref="admin-edit-surat-bayar({id:data.idSuratBayar})">Edit</a> | <a ng-click="delete(data)">Delete</a>
+                    <a href="" ui-sref="admin-edit-surat-bayar({id:data.idSuratPembayaran})"><i class="fa fa-edit" md-colors="{color: 'amber'}"></i></a>
+                    <a href="" ui-sref="admin-edit-surat-bayar({id:data.idSuratPembayaran})"><i class="fa fa-remove" md-colors="{color: 'red'}"></i></a>
+                   
             </th>
         </tr>
     </tbody>

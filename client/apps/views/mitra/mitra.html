@@ -3,7 +3,12 @@
         <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
             md-whiteframe="4">
             <md-toolbar class="md-theme-indigo">
-                <h1 class="md-toolbar-tools">MITRA ASABRI</h1>
+                <div class="md-toolbar-tools">
+                    <div class="left-side-header">
+                            <div class="title">{{me.namaBank}}</div>
+                            <div class="subtitle">{{me.namaBank}}</div>
+                    </div>
+                </div>
             </md-toolbar>
             <md-content ng-controller="LeftCtrl">
                 <div class="sidenav">

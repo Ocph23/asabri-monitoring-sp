@@ -9,6 +9,28 @@
 
 }
 
+
+md-switch{
+  margin: 0px !important;
+}
+
+.progress-container{
+  margin-top: -10px;
+  margin-left: -20px;
+  margin-right: -10px;
+  
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background: rgba(190, 190, 190, 0.486);
+  md-progress-circular {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
+  }
+}
+
+
 body {
   font-family: 'nunitoregular';
   font-size: 20px;
@@ -66,8 +88,8 @@ body {
 }
 
 .fa {
-  color: silver;
-  font-size: 20px;
+  color: rgb(3, 169, 244);
+  font-size: 25px;
 }
 
 md-icon {
@@ -166,7 +188,7 @@ md-icon {
       li{
         a{
           width: 400px !important;
-          color: silver !important;
+          color: rgb(3, 169, 244)!important;
         }
         padding: 15px;
         border-bottom: .5px solid rgb(238, 236, 236) !important;
@@ -247,7 +269,7 @@ md-menu {
 }
 
 .md-datepicker-input-container {
-  width: 150px !important;
+  width: 130px !important;
 }
 
 .sb {
@@ -261,7 +283,7 @@ md-menu {
     }
 
     .sb-content {
-      padding: 50px;
+      padding: 30px;
     }
 
   }
@@ -280,6 +302,9 @@ md-menu {
 }
 
 
+.just-print {
+  display:none;
+}
 
 
 @media print {
@@ -290,6 +315,28 @@ md-menu {
   .print {
     display: block;
   }
+
+  .just-print {
+    display:block;
+  }
+
+  .table-border{
+    th,td{
+      border: .8px solid rgb(235, 231, 231);
+    }
+  }
+
+  .title-header{
+    margin-top: 20px;
+    text-align: center;
+    h1{
+      text-transform: uppercase;
+      text-shadow: 1px 2px 3px silver;
+    }
+  }
+
+
+
 
   .fab-right,
   .dataTables_filter,
@@ -312,6 +359,37 @@ md-menu {
     font-size: 12px !important;
   }
 
+}
+
+
+
+#dashboard{
+
+  color: white;
+  .dashboard-head{
+    color: white;
+    text-align: center;
+    .icon{
+      text-shadow: #cccccc 1px 2px;
+      width: auto;
+      margin-bottom: 20px;
+      i{
+        color: white;
+        font-size: 100px;
+      }
+    }
+  }
+
+ 
+
+  h4, h1{
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+  }
+  h1{
+    font-size: 50px;
+  }
 }
 
 

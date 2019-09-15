@@ -1,0 +1,61 @@
+get http://localhost:3000/api/sp HTTP/1.1
+
+###
+
+get http://localhost:3000/api/sp/9 HTTP/1.1
+
+###
+
+get http://localhost:3000/api/sp/kodebayar/EDHH12112521 HTTP/1.1
+
+###
+
+
+post http://localhost:3000/api/sp/nomorsp HTTP/1.1
+content-type: application/json
+
+{
+    "nomor":"20/IV/2019"
+}
+###
+
+
+POST http://localhost:3000/api/sp HTTP/1.1
+content-type: application/json
+
+{
+    "berlakuDariTanggal":"2012-03-19T07:22Z",
+          "berlakuSampaiTanggal":"2012-03-19T07:22Z",
+          "nomorSurat":"20/IV/2019",
+          "idBank":10,
+          "kodeBayar":"EDHH1211252",
+          "jumlah":"20000000",
+          "status":"aktif",
+          "nasabah":{
+                "nama":"Chandras", "pangkat":"BRIPDA 12",
+                "nomorNasabah":"1223456", 
+                "tanggalLahir":"2012-03-19T07:22Z","tanggalSKEP":"2012-03-19T07:22Z","tanggalPensiun":"2012-03-19T07:22Z",
+                "kodeJiwa":"122532",
+                "alamat":"jln Ardipura No 23"
+          }
+}
+
+###
+
+
+
+Put http://localhost:3000/api/sp HTTP/1.1
+content-type: application/json
+
+{
+    "idBank":8,
+    "nama": "Bank Mandiri Syariah",
+    "kodeBank":"003"
+}
+
+###
+
+
+
+DELETE  http://localhost:3000/api/sp/1 HTTP/1.1
+###

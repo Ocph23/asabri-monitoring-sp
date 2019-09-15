@@ -1,0 +1,38 @@
+get http://localhost:3000/api/mitra HTTP/1.1
+
+###
+
+
+POST http://localhost:3000/api/mitra HTTP/1.1
+content-type: application/json
+
+{
+    "idBank": 10,
+    "nama":"Mandiri Cabang Jayapura",
+    "alamat":"jln",
+    "kode":"001001",
+    "email":"mandiri.cab.jayapura@gmail.com"
+}
+
+###
+
+
+
+Put http://localhost:3000/api/mitra/6 HTTP/1.1
+content-type: application/json
+
+{
+    "idMitraBayar":6,
+     "idBank": 10,
+    "nama":"Mandiri Cabang Abe",
+    "alamat":"jln. Sudirman Saja Ro",
+    "kode":"001001",
+    "email":"mandiri.cab.jayapura@gmail.com"
+}
+
+###
+
+
+
+DELETE  http://localhost:3000/api/mitra/2 HTTP/1.1
+###

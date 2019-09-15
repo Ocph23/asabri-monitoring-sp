@@ -78,14 +78,35 @@ angular
         templateUrl: "../client/apps/views/admin/admin-add-suratbayar.html"
       })
 
+        ///laporan-admin
 
+        .state("laporan-aktif", {
+          url: "/laporan-aktif",
+          parent: "admin",
+          controller: "laporanController",
+          templateUrl: "../client/apps/views/laporan/admin-aktif.html"
+        })
+
+        .state("laporan-kadaluwarsa", {
+          url: "/laporan-kadaluwarsa",
+          parent: "admin",
+          controller: "laporanController",
+          templateUrl: "../client/apps/views/laporan/admin-kadaluwarsa.html"
+        })
+
+        .state("laporan-terbayarkan", {
+          url: "/laporan-terbayarkan",
+          parent: "admin",
+          controller: "laporanController",
+          templateUrl: "../client/apps/views/laporan/admin-terbayarkan.html"
+        })
 
 
       ///mitra
 
       .state("mitra", {
         url: "/mitra",
-        controller: "homeController",
+        controller: "mitraController",
         templateUrl: "../client/apps/views/mitra/mitra.html"
       })
 
@@ -109,5 +130,17 @@ angular
         parent: "mitra",
         controller: "mitraCariController",
         templateUrl: "../client/apps/views/mitra/mitra-cari.html"
-      });
+      })
+      
+      
+      .state("mitra-sp", {
+        url: "/mitra-sp/:id",
+        parent: "mitra",
+        controller: "mitraSPController",
+        templateUrl: "../client/apps/views/mitra/mitra-sp.html"
+      })
+      
+    
+      
+      ;
   });

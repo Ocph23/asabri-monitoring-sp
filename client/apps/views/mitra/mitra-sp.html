@@ -1,0 +1,96 @@
+<h1>Buat Surat Pembayaran</h1>
+
+<div class="sb">
+    <form>
+        <div class="sb-item">
+            <div layout="row" layout-xs="column">
+                <div flex="" class="sb-content">
+                    <div class="sb-title">
+                        Data Surat Pembayaran
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>Nomor Surat</label>
+                        <input ng-model="model.nomorSurat" readonly>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>tanggal berlaku</label>
+                        <input readonly
+                            value="{{model.berlakuDariTanggal|date:'dd MMM yyyy'}} - {{model.berlakuSampaiTanggal|date:'dd MMM yyyy'}}">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Bank Tempat Pencairan</label>
+                        <md-select ng-disabled="true" style="margin-bottom: 20px;" class="md-block" ng-model="model.idBank">
+                            <md-option ng-repeat="state in banks" value="{{state.idBank}}">
+                                {{state.nama}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Kode Bayar</label>
+                        <input ng-model="model.kodeBayar">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Jumlah</label>
+                        <input ng-model="model.jumlah" type="number">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <h6>{{getTerbilang(model.jumlah)}}</h6>
+
+                    </md-input-container>
+                </div>
+                <div flex="" class="sb-content">
+                    <div class="sb-title">
+                        Data Nasabah
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>Nama</label>
+                        <input ng-model="model.nasabah.nama">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Nomor Nasabah</label>
+                        <input ng-model="model.nasabah.nomorNasabah">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Pangkat/GOL</label>
+                        <input ng-model="model.nasabah.pangkat">
+                    </md-input-container>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block">
+                            <label>Tanggal Lahir</label>
+                            <input readonly
+                            value="{{model.nasabah.tanggalLahir|date:'dd MMM yyyy'}}">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Tanggal SKEP</label>
+                            <input readonly
+                            value="{{model.nasabah.tanggalSKEP|date:'dd MMM yyyy'}}">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Tanggal Pensiun</label>
+                            <input readonly
+                            value="{{model.nasabah.tanggalPensiun|date:'dd MMM yyyy'}}">
+                        </md-input-container>
+                    </div>
+
+                    <md-input-container class="md-block">
+                        <label>Kode Jiwa</label>
+                        <input ng-model="model.nasabah.kodeJiwa">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Alamat</label>
+                        <textarea ng-model="model.nasabah.alamat" 
+                            md-select-on-focus></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="sb-item" style="text-align: center">
+        <div class="sb-content" style="padding: 0px 50px">
+            <md-button class="md-primary md-raised" style="width:auto !important" 
+            ng-click="save(model)">Pencairan Hanya Bisa Di Manakah</md-button>
+        </div>
+    </div>
+</div>

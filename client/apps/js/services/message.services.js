@@ -1,25 +1,47 @@
 angular.module("message.service", []).factory("message", MessageServices);
 
 function MessageServices(swangular, $q) {
-  return { info: info, error: error, warning: warning, dialog: dialog };
+  return {
+    info: info,
+    error: error,
+    warning: warning,
+    dialog: dialog
+  };
 
-  function info(params) {
+  function info(params, titleParam) {
+    const title = !titleParam ?
+      "Sukses" :
+      Number.isInteger(titleParam) ?
+      '"' + titleParam + '"' :
+      titleParam;
+
     swangular.swal({
-      title: "Sukses",
+      title: title,
       text: params,
       type: "info"
     });
   }
 
-  function error(params) {
+  function error(params, titleParam) {
+    const title = !titleParam ?
+      "Error" :
+      Number.isInteger(titleParam) ?
+      '"' + titleParam + '"' :
+      titleParam;
+
     swangular.swal({
-      title: "Error",
+      title: title,
       text: params,
       type: "error"
     });
   }
 
-  function warning(params) {
+  function warning(params, titleParam) {
+    const title = !titleParam ?
+      "Sukses" :
+      Number.isInteger(titleParam) ?
+      '"' + titleParam + '"' :
+      titleParam;
     swangular.swal({
       title: "Sukses",
       text: params,

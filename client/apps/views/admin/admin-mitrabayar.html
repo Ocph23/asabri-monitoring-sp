@@ -1,29 +1,60 @@
 <h1>Mitra Bayar</h1>
-<div class="fab-container">
-        <md-button class="md-fab md-primary fab-right" aria-label="Use Android" ng-click="change($event,null)">
-                <md-icon md-font-icon="fa fa-plus"></md-icon>
-            </md-button>
+<div style="position: relative; text-align: right">
+    <md-button class="md-fab md-primary" aria-label="Use Android" ng-click="change($event,null)">
+        <md-icon md-font-icon="fa fa-plus"></md-icon>
+    </md-button>
 </div>
-<table class="table table-striped" cellspacing="0" width="100%" datatable="ng">
+<table style="background-color: rgb(223, 222, 222)" class="table table-striped" cellspacing="0" width="100%">
     <thead>
-        <tr>
+        <tr style="border: 1px wheat solid">
             <th>NO</th>
             <th>Kode</th>
             <th>Nama Bank</th>
             <th>Mitra Bayar</th>
+            <th>Email</th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        <tr ng-repeat="data in datas">
+    <tbody ng-repeat="data in datas">
+        <tr style="border: 1px wheat solid">
             <td>{{ $index + 1 }}</td>
-            <td>{{ data.bank.kode }}</td>
+            <td>{{ data.kode }}</td>
             <td>{{ data.bank.nama }}</td>
             <td>{{ data.nama }}</td>
-            <th>
-                    <a href="" ng-click="change($event,data)">Edit</a> | <a ng-click="delete(data)">Delete</a>
-            </th>
+            <td>{{ data.email }}</td>
+            <td style="text-align: right">
+                <a href="" ng-click="change($event,data)"><i class="fa fa-edit" md-colors="{color: 'amber'}"></i></a>
+                <a href="" ng-click="showUser(data)"><i class="fa fa-users" md-colors="{color: 'teal'}"></i></a>
+            </td>
+        </tr>
+        <tr ng-show="data.show">
+            <td colspan="6" style="background-color: white; padding: 0px 0px 10px 0px !important">
+                <table style="border-bottom: wheat 1px solid;" class="table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr style="background-color: wheat">
+                            <th style="width: 30%">Nama</th>
+                            <th style="width: 30%">User Name</th>
+                            <th style="width: 20%">Email</th>
+                            <th style="width: auto">Status</th>
+                            <th style="width: auto">
+                                <a href="" ng-click="showUser(data)"><i class="fa fa-plus" md-colors="{color: 'indigo'}"></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.users">
+                            <td>{{item.nama}}</td>
+                            <td>{{item.userName}}</td>
+                            <td>{{item.email}}</td>
+                            <td style="text-align: right">
+                                <md-switch ng-model="item.status" ng-click="changeStatus(item)">
+                                </md-switch>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
         </tr>
     </tbody>
 </table>
-

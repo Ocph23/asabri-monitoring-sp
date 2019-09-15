@@ -1,6 +1,14 @@
+@font-face {
+  src: url("../fonts/webfontkit-20190909-105136/nunito-regular-webfont.woff2") format("woff2"), url("../fonts/webfontkit-20190909-105136/nunito-regular-webfont.woff") format("woff");
+  font-family: 'nunitoregular';
+  font-weight: normal;
+  font-style: normal;
+}
+
 .mitra-cari {
   position: absolute;
-  top: 50%;
+  height: 100vh;
+  top: 25%;
   left: 50%;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
@@ -26,5 +34,14 @@
   font-size: 35px;
   font-family: "Monserrat";
   color: red;
+}
+
+.left-side-header .title {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.left-side-header .subtitle {
+  font-size: 15px;
 }
 /*# sourceMappingURL=mitra.css.map */

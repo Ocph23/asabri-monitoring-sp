@@ -15,11 +15,11 @@
           <div layout-gt-sm="row">
             <md-input-container>
               <label>Dari Tanggal</label>
-              <md-datepicker ng-model="model.masaBerlaku.dari" aria-label="Enter date"></md-datepicker>
+              <md-datepicker ng-model="model.berlakuDariTanggal" aria-label="Enter date"></md-datepicker>
             </md-input-container>
             <md-input-container>
               <label>Sampai Tanggal</label>
-              <md-datepicker ng-model="model.masaBerlaku.sampai" aria-label="Enter date"></md-datepicker>
+              <md-datepicker ng-model="model.berlakuSampaiTanggal" aria-label="Enter date"></md-datepicker>
             </md-input-container>
           </div>
           <md-input-container class="md-block" flex-gt-sm>
@@ -40,7 +40,7 @@
           </md-input-container>
           <md-input-container class="md-block">
             <h6>{{getTerbilang(model.jumlah)}}</h6>
-            
+
           </md-input-container>
         </div>
         <div flex="" class="sb-content">
@@ -53,24 +53,27 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Nomor Nasabah</label>
-            <input ng-model="model.nasabah.nomor">
+            <input ng-model="model.nasabah.nomorNasabah">
           </md-input-container>
           <md-input-container class="md-block">
             <label>Pangkat/GOL</label>
             <input ng-model="model.nasabah.pangkat">
           </md-input-container>
-          <md-input-container class="md-block">
-            <label>Tanggal Lahir</label>
-            <md-datepicker ng-model="model.nasabah.tanggalLahir" aria-label="Enter date"></md-datepicker>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Tanggal SKEP</label>
-            <md-datepicker ng-model="model.nasabah.tanggalSKEP" aria-label="Enter date"></md-datepicker>
-          </md-input-container>
-          <md-input-container>
-            <label>Tanggal Pensiun</label>
-            <md-datepicker ng-model="model.nasabah.tanggalPensiun" aria-label="Enter date"></md-datepicker>
-          </md-input-container>
+          <div layout-gt-sm="row">
+              <md-input-container class="md-block">
+                  <label>Tanggal Lahir</label>
+                  <md-datepicker ng-model="model.nasabah.tanggalLahir" aria-label="Enter date"></md-datepicker>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Tanggal SKEP</label>
+                  <md-datepicker ng-model="model.nasabah.tanggalSKEP" aria-label="Enter date"></md-datepicker>
+                </md-input-container>
+                <md-input-container>
+                  <label>Tanggal Pensiun</label>
+                  <md-datepicker ng-model="model.nasabah.tanggalPensiun" aria-label="Enter date"></md-datepicker>
+                </md-input-container>
+          </div>
+         
           <md-input-container class="md-block">
             <label>Kode Jiwa</label>
             <input ng-model="model.nasabah.kodeJiwa">
@@ -86,8 +89,8 @@
   </form>
 
   <div class="sb-item">
-    <div class="sb-content">
-      <md-button class="md-primary md-raised" ng-click="save()">Simpan</md-button>
+    <div class="sb-content" style="padding: 0px 50px">
+      <md-button class="md-primary md-raised" ng-click="save(model)">Simpan</md-button>
     </div>
   </div>
 </div>

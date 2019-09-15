@@ -1,11 +1,12 @@
 <div layout="column" style="height:100vh;" ng-cloak>
+
     <section layout="row" class="left-side" flex>
         <md-sidenav class="md-sidenav-left print-hide" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
             md-whiteframe="4">
             <md-toolbar class="md-theme-indigo">
                 <div class="img-container">
                     <div class="img-item">
-                        <img src="../../../images/logo_header.png" />
+                        <img src="/client/images/logo_header.png" />
                     </div>
                 </div>
             </md-toolbar>
@@ -13,26 +14,28 @@
                 <div class="sidenav">
                     <md-list flex>
                         <ul>
-                            <li ui-sref="admin-home"><a ><i class="fa fa-home"></i>Home</a></li>
-                            <li ui-sref="admin-bank"><a href="" ><i class="fa fa-building"></i>Bank</a></li>
-                            <li ui-sref="admin-mitra-bayar"><a ><i class="fa fa-link"></i>Mitra Bayar</a></li>
+                            <li ui-sref="admin-home"><a><i class="fa fa-home"></i>Home</a></li>
+                            <li ui-sref="admin-bank"><a href=""><i class="fa fa-building"></i>Bank</a></li>
+                            <li ui-sref="admin-mitra-bayar"><a><i class="fa fa-link"></i>Mitra Bayar</a></li>
                             <li ng-click="sp = !sp"><a href=""><i class="fa fa-list-alt"></i>Surat Bayar</a>
                                 <md-icon ng-show="!sp">expand_more</md-icon>
                                 <md-icon ng-show="sp">expand_less</md-icon>
                             </li>
                             <ul ng-show="sp">
-                                    <li ui-sref="admin-add-surat-bayar"><a href="" ><i class="fa fa-new"></i>Baru</a></li>
-                                    <li ui-sref="admin-surat-bayar"><a href="" ><i class="fa fa-new"></i>Data</a></li>
-                                </ul>
+                                <li ui-sref="admin-add-surat-bayar"><a href=""><i class="fa fa-new"></i>Baru</a></li>
+                                <li ui-sref="admin-surat-bayar"><a href=""><i class="fa fa-new"></i>Data</a></li>
+                            </ul>
 
                             <li ng-click="lp = !lp"><a href=""><i class="fa fa-file"></i>Laporan</a>
                                 <md-icon ng-show="!lp">expand_more</md-icon>
                                 <md-icon ng-show="lp">expand_less</md-icon>
-                             
+
                             </li>
                             <ul ng-show="lp">
-                                    <li><a href="" ng-clik=""><i class="fa fa-home"></i>Baru</a></li>
-                                </ul>
+                                <li ui-sref="laporan-aktif"><a ui-sref="laporan-aktif"><i class="fa fa-active"></i>SP Aktif</a></li>
+                                <li ui-sref="laporan-kadaluwarsa"><a ui-sref="laporan-kadaluwarsa"><i class="fa fa-expired"></i>SP Kadaluwarsa</a></li>
+                                <li ui-sref="laporan-terbayarkan"><a ui-sref="laporan-terbayarkan"><i class="fa fa-money"></i>SP Terbayarkan</a></li>
+                            </ul>
                         </ul>
 
                     </md-list>
@@ -52,9 +55,11 @@
 
             <div layout="column" layout-padding layout-align="top center">
                 <md-card class="data-content">
+                    <div class="progress-container" ng-if="spinner">
+                        <md-progress-circular class="md-accent md-hue-1" md-diameter="60"></md-progress-circular>
+                    </div>
                     <md-card-content>
                         <ui-view></ui-view>
-
                     </md-card-content>
                 </md-card>
             </div>

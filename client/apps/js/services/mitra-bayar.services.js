@@ -1,81 +1,131 @@
-angular.module("mitraBayar.service", [])
+angular
+  .module("mitraBayar.service", [])
+  .factory("MitraBayarService", MitraBayarService);
 
-    .factory("MitraBayarService", MitraBayarService)
+function MitraBayarService($q, $http, helperServices, AuthService) {
+  var instance = false;
+  var datas = [];
+  get();
 
+  function get() {
+    var def = $q.defer();
 
-    ;
-
-
-
-    function MitraBayarService($q)
-    {
-
-        var instance=false;
-        var datas=[{idMitraBayar:1,idBank:1,bank:{idBank:1,kode:"0001",nama:"Bank Mandiri"},nama:"Bank Mandiri Cabang Jayapura", email:"mandiri-jayapura@gmail.com", alamat:"jln. Ardupura"}];
-        get();
-
-        function get(){
-            var def = $q.defer();
-
-            if(instance)
-            {
-                def.resolve(datas)
-            }else{
-                def.resolve(datas);
-            }
-
-            return def.promise;
+    if (!instance) {
+      $http({
+        method: "GET",
+        url: helperServices.url + "/api/mitra",
+        headers: AuthService.getHeader()
+      }).then(
+        x => {
+          instance = true;
+          datas = x.data;
+          def.resolve(datas);
+        },
+        err => {
+          helperServices.errorHandler(err);
+          def.reject(err);
         }
-
-
-        function post(data)
-        {
-            var def = $q.defer();
-
-            if(true)
-            {
-                  datas.push(data);  
-                  def.resolve(data);
-            }else{
-                def.resolve(datas);
-            }
-            return def.promise;
-        }
-
-
-        function put(data)
-        {
-            var def = $q.defer();
-            var dataInCollection=datas.find(x=>x.idBank==data.idBank);
-            if(dataInCollection)
-            {
-                dataInCollection.nama=data.nama;
-                dataInCollection.kode=data.kode;
-                  def.resolve(data);
-            }else{
-                def.resolve(datas);
-            }
-            return def.promise;
-        }
-
-
-        function remove(data){
-            var def = $q.defer();
-            try {
-                var index = datas.indexOf(data);
-                datas.splice(index,1);
-                def.resolve(true);
-            } catch (error) {
-                def.reject(error);
-            }
-            return def.promise;
-        }
-
-
-
-        return {
-            get:get, post:post, put:put, remove:remove
-        }
-
+      );
+    } else {
+      def.resolve(datas);
     }
 
+    return def.promise;
+  }
+
+  function post(data) {
+    var def = $q.defer();
+    $http({
+      method: "POST",
+      url: helperServices.url + "/api/mitra",
+      headers: AuthService.getHeader(),
+      data: data
+    }).then(
+      x => {
+        datas.push(x.data);
+        def.resolve(data);
+      },
+      err => {
+        helperServices.errorHandler(err);
+        def.reject(err);
+      }
+    );
+
+    return def.promise;
+  }
+
+  function put(data) {
+    var def = $q.defer();
+    try {
+      $http({
+        method: "PUT",
+        url: helperServices.url + "/api/mitra/" + data.idMitrabayar,
+        headers: AuthService.getHeader(),
+        data: data
+      }).then(
+        x => {
+          var dataInCollection = datas.find(
+            x => x.idMitrabayar == data.idMitrabayar
+          );
+          if (dataInCollection) {
+            dataInCollection.nama = data.nama;
+            dataInCollection.kode = data.kode;
+            dataInCollection.kode = data.email;
+            dataInCollection.kode = data.alamat;
+            def.resolve(data);
+          } else {
+            def.resolve(data);
+          }
+        },
+        err => {
+          helperServices.errorHandler(err);
+          def.reject(err);
+        }
+      );
+    } catch (error) {
+      helperServices.errorHandler(err);
+      def.reject(err);
+    }
+
+    return def.promise;
+  }
+
+  function remove(data) {
+    var def = $q.defer();
+    try {
+      var index = datas.indexOf(data);
+      datas.splice(index, 1);
+      def.resolve(true);
+    } catch (err) {
+      helperServices.errorHandler(err);
+        def.reject(err);
+    }
+    return def.promise;
+  }
+
+  function getUsers(id) {
+    var def = $q.defer();
+    $http({
+      method: "GET",
+      url: helperServices.url + "/api/auth/UsersByMitraBayar/" + id,
+      headers: AuthService.getHeader()
+    }).then(
+      x => {
+        def.resolve(x.data);
+      },
+      err => {
+        helperServices.errorHandler(err);
+        def.reject(err);
+      }
+    );
+    return def.promise;
+  }
+
+  return {
+    get: get,
+    getUsers: getUsers,
+    post: post,
+    put: put,
+    remove: remove
+  };
+}

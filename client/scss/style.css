@@ -6,6 +6,27 @@
   font-style: normal;
 }
 
+md-switch {
+  margin: 0px !important;
+}
+
+.progress-container {
+  margin-top: -10px;
+  margin-left: -20px;
+  margin-right: -10px;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background: rgba(190, 190, 190, 0.486);
+}
+
+.progress-container md-progress-circular {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+}
+
 body {
   font-family: 'nunitoregular';
   font-size: 20px;
@@ -64,8 +85,8 @@ body {
 }
 
 .fa {
-  color: silver;
-  font-size: 20px;
+  color: #03a9f4;
+  font-size: 25px;
 }
 
 md-icon {
@@ -168,7 +189,7 @@ md-icon {
 
 .sidenav .flex ul li a {
   width: 400px !important;
-  color: silver !important;
+  color: #03a9f4 !important;
 }
 
 .sidenav .flex ul li i {
@@ -238,7 +259,7 @@ md-menu md-menu-content {
 }
 
 .md-datepicker-input-container {
-  width: 150px !important;
+  width: 130px !important;
 }
 
 .sb {
@@ -252,7 +273,7 @@ md-menu md-menu-content {
 }
 
 .sb .sb-item .sb-content {
-  padding: 50px;
+  padding: 30px;
 }
 
 .img-container {
@@ -268,12 +289,30 @@ md-menu md-menu-content {
   height: 35 px;
 }
 
+.just-print {
+  display: none;
+}
+
 @media print {
   .print-hide {
     display: none !important;
   }
   .print {
     display: block;
+  }
+  .just-print {
+    display: block;
+  }
+  .table-border th, .table-border td {
+    border: 0.8px solid #ebe7e7;
+  }
+  .title-header {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .title-header h1 {
+    text-transform: uppercase;
+    text-shadow: 1px 2px 3px silver;
   }
   .fab-right,
   .dataTables_filter,
@@ -293,5 +332,35 @@ md-menu md-menu-content {
   body {
     font-size: 12px !important;
   }
+}
+
+#dashboard {
+  color: white;
+}
+
+#dashboard .dashboard-head {
+  color: white;
+  text-align: center;
+}
+
+#dashboard .dashboard-head .icon {
+  text-shadow: #cccccc 1px 2px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+#dashboard .dashboard-head .icon i {
+  color: white;
+  font-size: 100px;
+}
+
+#dashboard h4, #dashboard h1 {
+  color: white;
+  font-size: 18px;
+  margin: 10px;
+}
+
+#dashboard h1 {
+  font-size: 50px;
 }
 /*# sourceMappingURL=style.css.map */

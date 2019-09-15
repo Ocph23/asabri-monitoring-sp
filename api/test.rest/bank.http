@@ -1,0 +1,32 @@
+get http://localhost:3000/api/bank HTTP/1.1
+
+###
+
+
+POST http://localhost:3000/api/bank HTTP/1.1
+content-type: application/json
+
+{
+    "nama": "Bank Syariah Mandiri",
+    "kodeBank":"002"
+}
+
+###
+
+
+
+Put http://localhost:3000/api/bank HTTP/1.1
+content-type: application/json
+
+{
+    "idBank":8,
+    "nama": "Bank Mandiri Syariah",
+    "kodeBank":"003"
+}
+
+###
+
+
+
+DELETE  http://localhost:3000/api/bank/9 HTTP/1.1
+###
