@@ -29,7 +29,7 @@ UserDb.registerAdmin = user => {
 
         if (result.insertId > 0) {
           user.idUser = result.insertId;
-          return resolve(result);
+          return resolve(user);
         }
 
         return reject("Data Tidak Tersimpan");

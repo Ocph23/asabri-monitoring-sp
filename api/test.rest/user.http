@@ -13,7 +13,7 @@ content-type: application/json
 
 ###
 
-POST https://asabrimonitoring.herokuapp.com/api/auth/register HTTP/1.1
+POST http://localhost:3000/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
@@ -22,6 +22,19 @@ content-type: application/json
     "password": "Sony@77",
     "roles":"admin"
 }
+
+####
+
+POST https://asabrimonitoring.herokuapp.com/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+     "userName": "ocph23",
+    "email":"ocph23@gmail.com",
+    "password": "Sony@77",
+    "roles":"admin"
+}
+####
 
 ###
 GET  http://localhost:3000/api/auth/me HTTP/1.1

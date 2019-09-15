@@ -49,10 +49,8 @@ router.post("/register", async (req, res) => {
     user.password = bcrypt.hashSync(req.body.password, 8);
     contextDb.Users.registerAdmin(user).then(
       data => {
-        if (data && data.length > 0) {
-          res.status(200).json({
-            data: x
-          });
+        if (data) {
+          res.status(200).json(data);
         }else
           throw new Error("Registrasi Gagal");
       },
