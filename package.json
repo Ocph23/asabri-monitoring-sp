@@ -4,7 +4,8 @@
   "description": "aplikasi monitoring",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon index.js -w"
+    "dev": "npx nodemon index.js -w",
+    "start": "node index.js"
   },
   "keywords": [
     "template"
