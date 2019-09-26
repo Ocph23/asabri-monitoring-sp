@@ -97,8 +97,15 @@ angular
         .state("laporan-terbayarkan", {
           url: "/laporan-terbayarkan",
           parent: "admin",
-          controller: "laporanController",
+          controller: "laporanTerbayarController",
           templateUrl: "../client/apps/views/laporan/admin-terbayarkan.html"
+        })
+
+        .state("mitra-laporan-terbayarkan", {
+          url: "/mitra-laporan-terbayarkan",
+          parent: "mitra",
+          controller: "laporanTerbayarController",
+          templateUrl: "../client/apps/views/laporan/mitra-terbayarkan.html"
         })
 
 

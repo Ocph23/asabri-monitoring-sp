@@ -23,11 +23,8 @@
             <th>Nama MB</th>
         </tr>
     </thead>
-    <tbody ng-repeat="(key, value) in datas | groupBy:'namaBank'">
-        <tr style="background-color: rgb(230, 228, 228)">
-            <td colspan="10">{{key}}</td>
-        </tr>
-        <tr ng-repeat="data in value">
+    <tbody ng-repeat="data in datas | filterBy: ['kodeMitraBayar']:me.kodeMitra">
+        <tr >
             <td>{{$index+1}}</td>
             <td>{{data.tanggalBayar|date:'dd-MM-yyyy'}}</td>
             <td>{{data.kodeBayar}}</td>
@@ -38,11 +35,6 @@
             <td>{{data.nomorBuktiBayar}}</td>
             <td>{{data.kodeMitraBayar}}</td>
             <td>{{data.namaMitraBayar}}</td>
-        </tr>
-        <tr style="margin-bottom: 15px !important; background-color: rgb(247, 245, 245)">
-            <td colspan="5">Total {{key}}</td>
-            <td style="text-align: right">Rp.{{sumGroup(value)|number}}</td>
-            <td colspan="5"></td>
         </tr>
     </tbody>
     <tfoot>

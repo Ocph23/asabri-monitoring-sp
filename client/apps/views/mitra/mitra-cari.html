@@ -14,12 +14,12 @@
         </div>
 
         <div class="mitra-cari-options">
-                <md-button ng-click="sbb=true;error=false" ng-disabled="sbb" ng-click="" md-no-ink class="md-primary">Surat Bayar</md-button>
+                <md-button ng-click="sbb=true;error=false" ng-disabled="sbb" ng-click="" md-no-ink class="md-primary">Nomor SP</md-button>
                 <md-button ng-click="sbb=false;error=false" ng-disabled="!sbb" class="md-primary">Kode Bayar</md-button>
         </div>
         
         <div class="mitra-cari-options" ng-if="error">
-                <div class="error" ng-if="sbb && error">Surat Bayar : {{model.nomor}}</div>
+                <div class="error" ng-if="sbb && error">Nomor SP : {{model.nomor}}</div>
                 <div class="error" ng-if="!sbb && error">Kode Bayar : {{model.nomor}}</div>
                 <div class="error" ng-if="error">Tidak Ditemukan</div>
        

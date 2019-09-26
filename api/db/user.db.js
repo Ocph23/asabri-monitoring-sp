@@ -108,15 +108,18 @@ UserDb.getMitraBayarUser = id => {
   return new Promise((resolve, reject) => {
     pool.query(
       `SELECT
-      users.nama, users.role, users.email as userEmail, usermitrabayar.status,
-      mitrabayar.nama, mitrabayar.kode as kodeMitra, mitrabayar.email as mitraBayarEmail, bank.nama as namaBank,
-      bank.kodeBank
+      users.nama, users.role, users.email AS userEmail,
+      usermitrabayar.status, mitrabayar.nama, mitrabayar.kode AS
+      kodeMitra, mitrabayar.email AS mitraBayarEmail, bank.nama AS
+      namaBank, bank.kodeBank, usermitrabayar.idUserMitraBayar,
+      usermitrabayar.idUser, usermitrabayar.idMitraBayar,
+      users.userName, mitrabayar.idBank, mitrabayar.alamat
     FROM
       usermitrabayar RIGHT JOIN
       users ON users.iduser = usermitrabayar.idUser LEFT JOIN
       mitrabayar ON usermitrabayar.idMitraBayar = mitrabayar.idMitraBayar
       LEFT JOIN
-      bank ON mitrabayar.idBank = bank.idBank where users.iduser=?`,
+      bank ON mitrabayar.idBank = bank.idBank where users.role="mitra" and users.iduser=?`,
       [id],
       (err, result) => {
         if (err) {
@@ -127,5 +130,29 @@ UserDb.getMitraBayarUser = id => {
     );
   });
 };
+
+
+UserDb.getMitraBayarUsers = id => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `SELECT
+      usermitrabayar.idUserMitraBayar, usermitrabayar.idUser,
+      usermitrabayar.idMitraBayar, usermitrabayar.status,
+      users.userName, users.password, users.nama, users.role,
+      users.email
+    FROM
+      usermitrabayar LEFT JOIN
+      users ON usermitrabayar.idUser = users.iduser where  usermitrabayar.idMitraBayar=?;`,
+      [id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
 
 module.exports = UserDb;

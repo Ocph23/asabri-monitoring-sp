@@ -58,11 +58,9 @@ db.update=(param)=>{
               return reject(err);
             }
     
-            if (result.insertId > 0) {
-              user.idUser = result.insertId;
+            if (result) {
               return resolve(result);
             }
-    
             return reject("Data Tidak Tersimpan");
           }
         );

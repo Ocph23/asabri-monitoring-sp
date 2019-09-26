@@ -1,20 +1,26 @@
-
-function convertJsonDateToMySqlDate (tanggal){
+function convertJsonDateToMySqlDate(tanggal) {
+  try {
     if (tanggal) {
       var date = new Date(tanggal);
-      var day = date.getDay();
-      var month = date.getMonth();
-      var year = date.getFullYear();
-      var res= year + "-" + (month+1) + "-" + day;
-      return res;
+      if (date) {
+        var day = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var res = year + "-" + (month + 1) + "-" + day;
+        return res;
+      } else {
+        throw new Error("Format Tanggal Salah");
+      }
+    } else {
+      throw new Error("Tidak Boleh Kosong");
     }
-    return null;
+  } catch (err) {
+    throw new Error(err.message);
   }
-
-
-const model={
-    convertJsonDateToMySqlDate:convertJsonDateToMySqlDate
 }
 
+const model = {
+  convertJsonDateToMySqlDate: convertJsonDateToMySqlDate
+};
 
-module.exports=model;
+module.exports = model;

@@ -1,7 +1,6 @@
 <div layout="column" style="height:100vh;" ng-cloak>
-
     <section layout="row" class="left-side" flex>
-        <md-sidenav class="md-sidenav-left print-hide" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
             md-whiteframe="4">
             <md-toolbar class="md-theme-indigo">
                 <div class="img-container">
@@ -46,8 +45,8 @@
         </md-sidenav>
 
         <md-content flex>
-            <div class="navbar print-hide">
-                <a href="" ng-click="toggleLeft()"><i class="fa fa-list"></i></a>
+            <div class="navbar">
+                <a href="" ng-click="toggleLeft()"><i class="fa fa-list" style="color: white"></i></a>
                 <ul style="position:fixed;right:0px">
                     <userlogin></userlogin>
                 </ul>

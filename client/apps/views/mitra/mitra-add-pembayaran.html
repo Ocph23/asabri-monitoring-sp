@@ -1,0 +1,60 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak style="min-width: 400px" ng-submit="answer(model)">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Buat Pembayaran</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-content layout-padding style="padding: 20px;">
+                <md-input-container class="md-block">
+                    <label>Bank</label>
+                    <input ng-model="param.user.namaBank" readonly>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Mitra Bayar</label>
+                    <input ng-model="param.user.nama" readonly>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Nama Nasabah</label>
+                    <input ng-model="param.model.namaPenerima" readonly>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Nomor Bukti Pembayaran</label>
+                    <input type="text" ng-model="model.nomorBuktiBayar" required>
+                </md-input-container>
+                <choose-file layout="row">
+                    <input id="fileInput" type="file" class="ng-hide">
+                    <md-input-container flex class="md-block">
+                      <input type="text" ng-model="model.fileName" disabled required>
+                      <div class="hint">pilih file</div>
+                    </md-input-container>
+                    <div>
+                      <md-button id="uploadButton" class="md-fab md-mini">
+                        <md-icon class="material-icons">attach_file</md-icon>
+                      </md-button>
+                    </div>
+                  </choose-file>   
+                <md-input-container class="md-block">
+                    <label>Tanggal Bayar</label>
+                    <md-datepicker style="width: 100% !important" ng-model="model.tanggalBayar" aria-label="Enter date"></md-datepicker>
+                  </md-input-container>
+
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Batal
+            </md-button>
+            <md-button type="submit">
+                Simpan
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+

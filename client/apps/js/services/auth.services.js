@@ -91,9 +91,11 @@ function AuthService($http, $q, StorageService, $state, helperServices) {
   }
 
   function getUserName() {
-    if (userIsLogin) {
+    if (userIsLogin()) {
       var result = StorageService.getObject("user");
       return result.user.userName;
+    }else{
+      $state.go("login");
     }
   }
 

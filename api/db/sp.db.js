@@ -5,17 +5,50 @@ const db = {};
 
 db.get = () => {
   return new Promise((resolve, reject) => {
-    pool.query("select * from suratPembayaran", (err, result) => {
-      if (err) reject(err);
-      if (result) return resolve(result);
-    });
+    pool.query(
+      `
+      SELECT
+        suratpembayaran.idSuratPembayaran,
+        suratpembayaran.berlakuDariTanggal,
+        suratpembayaran.berlakuSampaiTanggal,
+        suratpembayaran.nomorSurat,
+        suratpembayaran.kodeBayar, suratpembayaran.jumlah,
+        suratpembayaran.idBank, suratpembayaran.jenisAsuransi,  
+        suratpembayaran.statusPenerima,suratpembayaran.namaPenerima, suratpembayaran.noRekening,
+        If(IsNull(pembayaran.tanggalBayar), If(Date(now()) <
+        Date(suratpembayaran.berlakuSampaiTanggal), "aktif", "kadaluwarsa"),
+        "terbayar") AS status
+      FROM
+        suratpembayaran LEFT JOIN
+        pembayaran ON suratpembayaran.idSuratPembayaran =
+          pembayaran.idSuratPembayaran;`,
+      (err, result) => {
+        if (err) reject(err);
+        if (result) return resolve(result);
+      }
+    );
   });
 };
 
 db.getById = id => {
   return new Promise(async (resolve, reject) => {
     pool.query(
-      "select * from suratPembayaran where idSuratPembayaran=?",
+      `SELECT
+        suratpembayaran.idSuratPembayaran,
+        suratpembayaran.berlakuDariTanggal,
+        suratpembayaran.berlakuSampaiTanggal,
+        suratpembayaran.nomorSurat,
+        suratpembayaran.kodeBayar, suratpembayaran.jumlah,
+        suratpembayaran.idBank, suratpembayaran.jenisAsuransi, 
+        suratpembayaran.statusPenerima,suratpembayaran.namaPenerima, suratpembayaran.noRekening, 
+        If(IsNull(pembayaran.tanggalBayar), If(now() <
+        Date(suratpembayaran.berlakuSampaiTanggal), "aktif", "kadaluwarsa"),
+        "terbayar") AS status
+      FROM
+        suratpembayaran LEFT JOIN
+        pembayaran ON suratpembayaran.idSuratPembayaran =
+          pembayaran.idSuratPembayaran 
+      Where suratpembayaran.idSuratPembayaran= ?;`,
       [id],
       (err, result) => {
         if (err) return reject(err);
@@ -24,12 +57,26 @@ db.getById = id => {
     );
   });
 };
-
 
 db.getByKodeBayar = id => {
   return new Promise(async (resolve, reject) => {
     pool.query(
-      "select * from suratPembayaran where kodebayar=?",
+      `SELECT
+        suratpembayaran.idSuratPembayaran,
+        suratpembayaran.berlakuDariTanggal,
+        suratpembayaran.berlakuSampaiTanggal,
+        suratpembayaran.nomorSurat,
+        suratpembayaran.kodeBayar, suratpembayaran.jumlah,
+        suratpembayaran.idBank, suratpembayaran.jenisAsuransi,  
+        suratpembayaran.statusPenerima,suratpembayaran.namaPenerima, suratpembayaran.noRekening,
+        If(IsNull(pembayaran.tanggalBayar), If(now() <
+        Date(suratpembayaran.berlakuSampaiTanggal), "aktif", "kadaluwarsa"),
+        "terbayar") AS status
+      FROM
+        suratpembayaran LEFT JOIN
+        pembayaran ON suratpembayaran.idSuratPembayaran =
+          pembayaran.idSuratPembayaran 
+      Where suratpembayaran.kodeBayar= ?;`,
       [id],
       (err, result) => {
         if (err) return reject(err);
@@ -38,12 +85,26 @@ db.getByKodeBayar = id => {
     );
   });
 };
-
 
 db.getByNomorSP = id => {
   return new Promise(async (resolve, reject) => {
     pool.query(
-      "select * from suratPembayaran where nomorsurat=?",
+      `SELECT
+        suratpembayaran.idSuratPembayaran,
+        suratpembayaran.berlakuDariTanggal,
+        suratpembayaran.berlakuSampaiTanggal,
+        suratpembayaran.nomorSurat,
+        suratpembayaran.kodeBayar, suratpembayaran.jumlah,
+        suratpembayaran.idBank, suratpembayaran.jenisAsuransi,  
+        suratpembayaran.statusPenerima,suratpembayaran.namaPenerima, suratpembayaran.noRekening,
+        If(IsNull(pembayaran.tanggalBayar), If(now() <
+        Date(suratpembayaran.berlakuSampaiTanggal), "aktif", "kadaluwarsa"),
+        "terbayar") AS status
+      FROM
+        suratpembayaran LEFT JOIN
+        pembayaran ON suratpembayaran.idSuratPembayaran =
+          pembayaran.idSuratPembayaran 
+      Where suratpembayaran.nomorSurat= ?;`,
       [id],
       (err, result) => {
         if (err) return reject(err);
@@ -53,11 +114,10 @@ db.getByNomorSP = id => {
   });
 };
 
-
 db.getNasabagByidsp = id => {
   return new Promise((resolve, reject) => {
     pool.query(
-      "select * from nasabah where idSuratPembayaran=?",
+      "select * from peserta where idSuratPembayaran=?",
       [id],
       (err, result) => {
         if (err) reject(err);
@@ -69,73 +129,75 @@ db.getNasabagByidsp = id => {
 
 db.insert = param => {
   return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection, next) => {
-      try {
-        if (err) next(err);
-        if (connection) {
-          connection.beginTransaction(error => {
-            if (error) throw new Error("error");
-            else {
+    pool.getConnection((err, connection) => {
+      if (err) reject(err);
+      connection.beginTransaction(error => {
+        if (error) reject(error);
+        connection.query(
+          `insert into suratpembayaran (berlakuDariTanggal,berlakuSampaiTanggal,idBank,
+              nomorSurat, kodeBayar,jumlah,jenisAsuransi,namaPenerima,noRekening,statusPenerima) values(?,?,?,?,?,?,?,?,?,?)`,
+          [
+            param.berlakuDariTanggal,
+            param.berlakuSampaiTanggal,
+            param.idBank,
+            param.nomorSurat,
+            param.kodeBayar,
+            param.jumlah,
+            param.jenisAsuransi,
+            param.namaPenerima,
+            param.noRekening,
+            param.statusPenerima
+          ],
+          (err, result) => {
+            if (err) {
+              connection.rollback(function() {
+                connection.release();
+                reject(err);
+              });
+            }
+
+            if (result && result.insertId > 0) {
+              param.idSuratPembayaran = result.insertId;
+              param.nasabah.idSuratPembayaran = result.insertId;
+              const nas = param.nasabah;
               connection.query(
-                `insert into suratpembayaran (berlakuDariTanggal,berlakuSampaiTanggal,idBank,
-                    nomorSurat, kodeBayar,jumlah,status) values(?,?,?,?,?,?,?)`,
+                `insert into peserta (idSuratPembayaran,nama, pangkat,nomorPeserta, 
+                  tanggalLahir,tanggalSKEP,tanggalPensiun,kodeJiwa,alamat) values(?,?,?,?,?,?,?,?,?)`,
                 [
-                  helper.convertJsonDateToMySqlDate(param.berlakuDariTanggal),
-                  helper.convertJsonDateToMySqlDate(param.berlakuSampaiTanggal),
-                  param.idBank,
-                  param.nomorSurat,
-                  param.kodeBayar,
-                  param.jumlah,
-                  param.status
+                  nas.idSuratPembayaran,
+                  nas.nama,
+                  nas.pangkat,
+                  nas.nomorPeserta,
+                  nas.tanggalLahir,
+                  nas.tanggalSKEP,
+                  nas.tanggalPensiun,
+                  nas.kodeJiwa,
+                  nas.alamat
                 ],
-                (err, result) => {
-                  if (err) {
-                    throw new Error("Data Tidak Tersimpan");
+                (err1, result1) => {
+                  if (err1) {
+                    connection.rollback(function() {
+                      connection.release();
+                      reject(err1);
+                    });
                   }
-
-                  if (result.insertId > 0) {
-                    param.idSuratPembayaran = result.insertId;
-                    param.nasabah.idSuratPembayaran = result.insertId;
-                    const nas = param.nasabah;
-                    connection.query(
-                      `insert into nasabah (idSuratPembayaran,nama, pangkat,nomorNasabah, 
-                        tanggalLahir,tanggalSKEP,tanggalPensiun,,alamat) values(?,?,?,?,?,?,?,?,?)`,
-                      [
-                        nas.idSuratPembayaran,
-                        nas.nama,
-                        nas.pangkat,
-                        nas.nomorNasabah,
-                        helper.convertJsonDateToMySqlDate(nas.tanggalLahir),
-                        helper.convertJsonDateToMySqlDate(nas.tanggalSKEP),
-                        helper.convertJsonDateToMySqlDate(nas.tanggalPensiun),
-                        nas.kodeJiwa,
-                        nas.alamat
-                      ],
-                      (err1, result1) => {
-                        if (err1) {
-                          throw new Error("Data Tidak Tersimpan");
-                        }
-
-                        if (result1.insertId > 0) {
-                          param.nasabah.idNasabah = result1.insertId;
-                        }
+                  if (result1 && result1.insertId > 0) {
+                    param.nasabah.idNasabah = result1.insertId;
+                    connection.commit(function(err) {
+                      connection.release();
+                      if (err) {
+                        reject(err);
+                      } else {
+                        return resolve(param);
                       }
-                    );
-
-                    connection.commit();
-                    return resolve(param);
+                    });
                   }
-                  throw new Error("Data Tidak Tersimpan");
                 }
               );
             }
-          });
-        }
-      } catch (e) {
-        connection.rollback();
-        console.log("RoollBack");
-        return reject(e);
-      }
+          }
+        );
+      });
     });
   });
 };
@@ -143,78 +205,80 @@ db.insert = param => {
 db.update = param => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection, next) => {
-      try {
-        if (err) next(err);
-        if (connection) {
-          connection.beginTransaction(error => {
-            if (error) throw new Error("error");
-            else {
+      if (err) reject(err);
+      connection.beginTransaction(error => {
+        if (error) reject(err);
+        connection.query(
+          `update suratPembayaran set berlakuDariTanggal=?,berlakuSampaiTanggal=?,idBank=?,
+          nomorSurat=?, kodeBayar=?,jumlah=?, namaPenerima=?, noRekening=?, statusPenerima=?, jenisAsuransi=? where idSuratPembayaran=?`,
+          [
+            param.berlakuDariTanggal,
+            param.berlakuSampaiTanggal,
+            param.idBank,
+            param.nomorSurat,
+            param.kodeBayar,
+            param.jumlah,
+            param.namaPenerima,
+            param.noRekening,
+            param.statusPenerima,
+           param.jenisAsuransi,
+            param.idSuratPembayaran
+          ],
+          (err, result) => {
+            if (err) {
+              connection.rollback(function() {
+                connection.release();
+                reject(err);
+              });
+            }
+
+            if (result) {
+              const nas = param.nasabah;
               connection.query(
-                `update suratPembayaran set berlakuDariTanggal=?,berlakuSampaiTanggal=?,idBank=?,
-                nomorSurat=?, kodeBayar=?,jumlah=?,status=? where idSuratPembayaran=?`,
+                `update peserta set nama=?, pangkat=?,nomorPeserta=?, 
+                  tanggalLahir=?,tanggalSKEP=?,tanggalPensiun=?,kodeJiwa=?, alamat=? where idPeserta=?`,
                 [
-                  helper.convertJsonDateToMySqlDate(param.berlakuDariTanggal),
-                  helper.convertJsonDateToMySqlDate(param.berlakuSampaiTanggal),
-                  param.idBank,
-                  param.nomorSurat,
-                  param.kodeBayar,
-                  param.jumlah,
-                  param.status,
-                  param.idSuratPembayaran
+                  nas.nama,
+                  nas.pangkat,
+                  nas.nomorNasabah,
+                  nas.tanggalLahir,
+                  nas.tanggalSKEP,
+                  nas.tanggalPensiun,
+                  nas.kodeJiwa,
+                  nas.alamat,
+                  nas.idNasabah
                 ],
-                (err, result) => {
-                  if (err) {
-                    return reject(err);
+                (err1, result1) => {
+                  if (err1) {
+                    connection.rollback(function() {
+                      connection.release();
+                      reject(err1);
+                    });
                   }
 
-                  if (result) {
-                    const nas = param.nasabah;
-                    connection.query(
-                      `update nasabah set nama=?, pangkat=?,nomorNasabah=?, 
-                        tanggalLahir=?,tanggalSKEP=?,tanggalPensiun=?,kodeJiwa=?, alamat=? where idNasabah=?`,
-                      [
-                        nas.nama,
-                        nas.pangkat,
-                        nas.nomorNasabah,
-                        helper.convertJsonDateToMySqlDate(nas.tanggalLahir),
-                        helper.convertJsonDateToMySqlDate(nas.tanggalSKEP),
-                        helper.convertJsonDateToMySqlDate(nas.tanggalPensiun),
-                        nas.kodeJiwa,
-                        nas.alamat,
-                        nas.idNasabah
-                      ],
-                      (err1, result1) => {
-                        if (err1) {
-                          throw new Error("Data Tidak Tersimpan");
-                        }
-
-                        if (result1) {
-                          connection.commit();
-                          return resolve(param);
-                        }
-                        return reject("Data Tidak Tersimpan");
+                  if (result1) {
+                    connection.commit(function(err) {
+                      connection.release();
+                      if (err) {
+                        reject(err);
+                      } else {
+                        return resolve(param);
                       }
-                    );
-                  } else {
-                    return reject("Data Tidak Tersimpan");
+                    });
                   }
                 }
               );
             }
-          });
-        }
-      } catch (e) {
-        connection.rollback();
-        console.log("RoollBack");
-        return reject(e);
-      }
+          }
+        );
+      });
     });
   });
 };
 db.delete = id => {
   return new Promise((resolve, reject) => {
     pool.query(
-      "delete from suratPembayaran where idMitraBayar= ?",
+      "delete from suratPembayaran where idSuratPembayaran= ?",
       [id],
       (err, result) => {
         if (err) {
@@ -229,5 +293,74 @@ db.delete = id => {
     );
   });
 };
+
+db.createPembayaran = param => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `insert into pembayaran (idSuratPembayaran,idMitraBayar,tanggalBayar, nomorBuktiBayar,buktiBayar,idUserMitraBayar)
+        values(?,?,?,?,?,?)`,
+      [
+        param.idSuratPembayaran,
+        param.idMitraBayar,
+        param.tanggalBayar,
+        param.nomorBuktiBayar,
+        param.buktiBayar,
+        param.idUserMitraBayar
+      ],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        if (result) {
+          return resolve(true);
+        }
+        return reject("Data Tidak Tersimpan");
+      }
+    );
+  });
+};
+
+
+db.getPembayaran=id=>{
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "select * from pembayaran where idSuratPembayaran=?",
+      [id],
+      (err, result) => {
+        if (err) reject(err);
+        if (result) return resolve(result[0]);
+      }
+    );
+  });
+}
+
+
+db.laporanTerbayar=()=>{
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `SELECT
+      suratpembayaran.berlakuDariTanggal, suratpembayaran.kodeBayar,
+      suratpembayaran.namaPenerima, suratpembayaran.jenisAsuransi,
+      suratpembayaran.jumlah, suratpembayaran.nomorSurat,
+      pembayaran.nomorBuktiBayar, mitrabayar.kode as kodeMitraBayar, mitrabayar.nama as namaMitraBayar,
+      peserta.nama, pembayaran.tanggalBayar, bank.nama as namaBank,
+      bank.kodeBank
+    FROM
+      suratpembayaran LEFT JOIN
+      pembayaran ON suratpembayaran.idSuratPembayaran =
+        pembayaran.idSuratPembayaran LEFT JOIN
+      mitrabayar ON pembayaran.idMitraBayar = mitrabayar.idMitraBayar
+      LEFT JOIN
+      peserta ON suratpembayaran.idSuratPembayaran =
+        peserta.idSuratPembayaran LEFT JOIN
+      bank ON mitrabayar.idBank = bank.idBank
+    where pembayaran.tanggalBayar is not null;`,
+      (err, result) => {
+        if (err) reject(err);
+        if (result) return resolve(result);
+      }
+    );
+  });
+}
 
 module.exports = db;

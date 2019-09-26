@@ -120,7 +120,7 @@ router.get("/me", [authJwt.verifyToken],async (req,res)=>{
 router.get("/UsersByMitraBayar/:id", async (req, res) => {
   try {
     var id=req.params["id"];
-    const data = await contextDb.Users.getMitraBayarUser(id);
+    const data = await contextDb.Users.getMitraBayarUsers(id);
     res.status(200).json(data);
   } catch (error) {
     console.log(error);

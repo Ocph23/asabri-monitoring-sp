@@ -44,4 +44,31 @@
 .left-side-header .subtitle {
   font-size: 15px;
 }
+
+.side-left-foot {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.side-left-foot img {
+  margin: 20px;
+  height: 40px;
+  width: 150px;
+}
+
+.hint {
+  position: absolute;
+  left: 5px;
+  right: auto;
+  bottom: 0px;
+  font-size: 14px;
+  line-height: 14px;
+  -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  color: grey;
+  width: 100%;
+}
 /*# sourceMappingURL=mitra.css.map */

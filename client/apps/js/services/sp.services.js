@@ -183,13 +183,87 @@ function SuratBayarService($q, $http,helperServices,AuthService) {
     return def.promise;
   }
 
+
+  function createPembayaran(model){
+    var def = $q.defer();
+    $http({
+      method: "POST",
+      url: helperServices.url + "/api/sp/pembayaran",
+      headers: AuthService.getHeader(),
+      data: model
+    }).then(
+      x => {
+        def.resolve(x);
+      },
+      err => {
+        helperServices.errorHandler(err);
+      }
+    );
+
+    return def.promise;
+  }
+
+  function getPembayaran(id){
+    var def = $q.defer();
+    try {
+      $http({
+        method: "GET",
+        url: helperServices.url + "/api/sp/pembayaran/"+id,
+        headers: AuthService.getHeader(),
+      }).then(
+        res => {
+          if (res) {
+            def.resolve(res.data);
+          } else {
+            def.resolve(null);
+          }
+        },
+        err => {
+          def.reject(err);
+        }
+      );
+     
+    } catch (error) {
+       def.reject(error.message);
+    }
+    return def.promise;
+  }
+
+
+  function getLaporanTerbayar(){
+    var def = $q.defer();
+    try {
+      $http({
+        method: "GET",
+        url: helperServices.url + "/api/sp/laporanterbayar/true",
+        headers: AuthService.getHeader(),
+      }).then(
+        res => {
+          if (res) {
+            def.resolve(res.data);
+          } else {
+            def.resolve(null);
+          }
+        },
+        err => {
+          def.reject(err);
+        }
+      );
+     
+    } catch (error) {
+       def.reject(error.message);
+    }
+    return def.promise;
+  }
+
   return {
     get: get,
+    getLaporanTerbayar:getLaporanTerbayar,
     getByKodeBayar:cariByKodeBayar,
     getByNomorSP:cariByNomorSP,
     getById: getById,
     post: post,
-    put: put,
-    remove: remove
+    put: put,getPembayaran:getPembayaran,
+    remove: remove, createPembayaran:createPembayaran
   };
 }

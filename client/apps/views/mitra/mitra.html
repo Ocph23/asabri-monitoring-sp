@@ -5,8 +5,8 @@
             <md-toolbar class="md-theme-indigo">
                 <div class="md-toolbar-tools">
                     <div class="left-side-header">
-                            <div class="title">{{me.namaBank}}</div>
-                            <div class="subtitle">{{me.namaBank}}</div>
+                        <div class="title">{{me.namaBank}}</div>
+                        <div class="subtitle">{{me.namaBank}}</div>
                     </div>
                 </div>
             </md-toolbar>
@@ -21,7 +21,6 @@
                             </li>
                             <ul ng-show="sp">
                                 <li ui-sref="mitra-cari"><a href=""><i class="fa fa-new"></i>Cari</a></li>
-                                <li ui-sref="mitra-suratbayar"><a href=""><i class="fa fa-new"></i>Data</a></li>
                             </ul>
 
                             <li ng-click="lp = !lp"><a href=""><i class="fa fa-file"></i>Laporan</a>
@@ -30,20 +29,25 @@
 
                             </li>
                             <ul ng-show="lp">
-                                <li><a href="" ng-clik=""><i class="fa fa-home"></i>Baru</a></li>
+                                    <li ui-sref="mitra-laporan-terbayarkan"><a href=""><i class="fa fa-new"></i>Terbayarkan</a></li>
+                               
                             </ul>
+                           
                         </ul>
-
+                        
                     </md-list>
+                   
                 </div>
-
+              
             </md-content>
-
+            <div class="side-left-foot">
+                <img src="/client/images/logo_header.png" />
+            </div>
         </md-sidenav>
 
         <md-content flex>
             <div class="navbar">
-                <a href="" ng-click="toggleLeft()"><i class="fa fa-list"></i></a>
+                <a href="" ng-click="toggleLeft()" ><i class="fa fa-list" style="color: white"></i></a>
                 <ul style="position:fixed;right:0px">
                     <userlogin></userlogin>
                 </ul>
