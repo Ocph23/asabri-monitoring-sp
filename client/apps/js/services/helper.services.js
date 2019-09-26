@@ -6,12 +6,13 @@ angular.module("helper.service",[])
 
 function helperServices (message){
     var service={};
-   service.url="http://localhost:3000";
+   //service.url="http://localhost:3000";
+   service.url="https://asabrimonitoring.herokuapp.com";
 
    service.asuransi=["JP","UKP","THT"];
    service.statusPenerima=["Peserta","Wali"];
 
-  // service.url="https://bprkredit.000webhostapp.com";
+  
     service.spinner=false;
 
     return {arrayBufferToBase64:arrayBufferToBase64,statusPenerima:service.statusPenerima,url:service.url,spinner:service.spinner,errorHandler:errorHandler, asuransi:service.asuransi};
