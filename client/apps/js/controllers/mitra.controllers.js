@@ -5,7 +5,8 @@ angular
 	.controller('mitraSuratBayarController', mitraSuratBayarController)
 	.controller('mitraCariController', mitraCariController)
 	.controller('mitraSPController', mitraSPController)
-	.controller('createPembayaranController', createPembayaranController);
+	.controller('createPembayaranController', createPembayaranController)
+	.controller('mitraLaporanTerbayarkan',mitraLaporanTerbayarkan);
 
 function mitraController($scope, $rootScope, AuthService, helperServices, $timeout, $mdSidenav, $log) {
 	AuthService.me().then((x) => {
@@ -94,7 +95,16 @@ function mitraCariController($scope, $state, SuratBayarService) {
 	};
 }
 
-function mitraSPController($scope, helperServices, SuratBayarService, $stateParams, AuthService, message, BankService, $mdDialog) {
+function mitraSPController(
+	$scope,
+	helperServices,
+	SuratBayarService,
+	$stateParams,
+	AuthService,
+	message,
+	BankService,
+	$mdDialog
+) {
 	var id = $stateParams.id;
 	$scope.btn = {};
 	$scope.model = {};
@@ -160,12 +170,10 @@ function mitraSPController($scope, helperServices, SuratBayarService, $statePara
 		$scope.circleShow = true;
 		SuratBayarService.getPembayaran(params.idSuratPembayaran).then((x) => {
 			params.pembayaran = x;
-			params.pembayaran.buktiBayar =helperServices.arrayBufferToBase64(x.buktiBayar.data);
+			params.pembayaran.buktiBayar = helperServices.arrayBufferToBase64(x.buktiBayar.data);
 			$scope.circleShow = false;
 		});
 	};
-
-	
 }
 
 function createPembayaranController($scope, $mdDialog, dataToPass) {
@@ -190,4 +198,26 @@ function createPembayaranController($scope, $mdDialog, dataToPass) {
 	$scope.answer = function(model) {
 		$mdDialog.hide(model);
 	};
+}
+
+function mitraLaporanTerbayarkan($scope,AuthService,SuratBayarService) {
+	AuthService.me().then((me) => {
+		$scope.me = me;
+		SuratBayarService.getLaporanTerbayar().then((x) => {
+			$scope.datas = x;
+		});
+	});
+	$scope.print=function(){
+		setTimeout((x) => {
+			window.print();
+		}, 500);
+	}
+	$scope.sumGroup = function(datas) {
+		var total = 0;
+		datas.forEach((x) => {
+			total += x.jumlah;
+		});
+		return total;
+	};
+	
 }

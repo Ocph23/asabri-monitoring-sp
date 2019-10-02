@@ -1,38 +1,42 @@
 <div class="header-logo just-print">
-        <img height="45px;" src="./client/images/logo_header.png" />
-    </div>
-    
-    <div class="title-header">
-    
-        <h1>Laporan Surat Pembayaran Kadaluawarsa</h1>
-        <hr class="just-print" />
-    </div>
-    
-    <table class="table table-border" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nomor SP</th>
-                <th>Kode Bayar</th>
-                <th>Nasabah</th>
-                <th>Masa Berlaku</th>
-                <th>Jumlah</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>102/SP-ASABRI/IX/2019</td>
-                <td>ED12323213FD</td>
-                <td>Budi Chandra</td>
-                <td>23 Mar 2019 - 21 Juni 2020</td>
-                <th>25.000.000</th>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">Total</td>
-                <td>Rp.25.000.000</td>
-            </tr>
-        </tfoot>
-    </table>
+    <img height="45px;" src="./client/images/logo_header.png" />
+</div>
+
+<div class="title-header">
+
+    <h1>Laporan Surat Pembayaran Kadaluwarsa</h1>
+    <hr class="just-print" />
+</div>
+<div class="fab-right">
+    <md-button class="md-fab md-info " aria-label="Use Android" ng-click="print()">
+        <md-icon md-font-icon="fa fa-print"></md-icon>
+    </md-button>
+</div>
+<table class="table table-border" cellspacing="0" width="100%" ng-init="Init('kadaluwarsa')">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nomor SP</th>
+            <th>Kode Bayar</th>
+            <th>Peserta</th>
+            <th>Masa Berlaku</th>
+            <th>Jumlah</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="data in Datas | filterBy: ['status']:'kadaluwarsa'">
+            <td>{{$index+1}}</td>
+            <td>{{data.nomorSurat}}</td>
+            <td>{{data.kodeBayar}}</td>
+            <td>{{data.nasabah.nama}}</td>
+            <td>{{data.berlakuDariTanggal | date:'dd MMM yyyy'}} - {{data.berlakuSampaiTanggal| date:'dd MMM yyyy'}}</td>
+            <th>Rp. {{data.jumlah|number}}</th>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">Total</td>
+            <td>Rp. {{sumGroup(Datas) |number}}</td>
+        </tr>
+    </tfoot>
+</table>

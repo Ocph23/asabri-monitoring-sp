@@ -1,9 +1,9 @@
-<div class="home-main">
+<div class="home-main" ng-init="Init()">
     <div class="header-logo" ui-sref="home">
         <img src="/client/images/logo_header.png" />
     </div>
 
-    <md-card class="login">
+    <md-card class="login animated  fadeIn slow">
         <md-card-title>
           <span class="md-headline">Login</span>
         </md-card-title>
@@ -30,3 +30,15 @@
         </md-card-actions>
       </md-card>
 </div>
+
+<script>
+  $('input' ).each(function (element, i) {
+      if ((element.value !== undefined && element.value.length > 0)) {
+          $(this).siblings('input').addClass('active');
+      }
+      else {
+          $(this).siblings('input').removeClass('active');
+      }
+  });
+  </script>
+  

@@ -83,14 +83,14 @@ angular
         .state("laporan-aktif", {
           url: "/laporan-aktif",
           parent: "admin",
-          controller: "laporanController",
+          controller: "adminLaporanController",
           templateUrl: "../client/apps/views/laporan/admin-aktif.html"
         })
 
         .state("laporan-kadaluwarsa", {
           url: "/laporan-kadaluwarsa",
           parent: "admin",
-          controller: "laporanController",
+          controller: "adminLaporanController",
           templateUrl: "../client/apps/views/laporan/admin-kadaluwarsa.html"
         })
 
@@ -104,7 +104,7 @@ angular
         .state("mitra-laporan-terbayarkan", {
           url: "/mitra-laporan-terbayarkan",
           parent: "mitra",
-          controller: "laporanTerbayarController",
+          controller: "mitraLaporanTerbayarkan",
           templateUrl: "../client/apps/views/laporan/mitra-terbayarkan.html"
         })
 

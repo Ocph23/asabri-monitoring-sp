@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser')
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
 require('./api/routes')(app);
 
 var path = require('path');

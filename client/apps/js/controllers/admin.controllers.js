@@ -8,7 +8,8 @@ angular
 	.controller('adminSuratBayarController', adminSuratBayarController)
 	.controller('adminAddSuratBayarController', adminAddSuratBayarController)
 	.controller('adminEditSuratBayarController', adminEditSuratBayarController)
-	.controller('laporanTerbayarController', laporanTerbayarController);
+	.controller('laporanTerbayarController', laporanTerbayarController)
+	.controller('adminLaporanController',adminLaporanController);
 
 function adminController($scope, $rootScope, helperServices, $timeout, $mdSidenav, $log) {
 	$rootScope.spinner = helperServices.spinner;
@@ -270,6 +271,11 @@ function adminSuratBayarController($scope, $rootScope, SuratBayarService, helper
 		$scope.datas = x;
 		$rootScope.spinner = false;
 	});
+	$scope.print=function(){
+		setTimeout((x) => {
+			window.print();
+		}, 500);
+	}
 }
 
 function adminAddSuratBayarController($scope, message, BankService, helperServices, SuratBayarService, $state) {
@@ -367,21 +373,15 @@ function adminEditSuratBayarController(
 	};
 }
 
-function laporanTerbayarController($scope, SuratBayarService,AuthService) {
-  $scope.datas = [];
-  
-  AuthService.me().then(me=>{
-    $scope.me=me;
-    SuratBayarService.getLaporanTerbayar().then((x) => {
-      $scope.datas = x;
-      setTimeout((x) => {
-        window.print();
-      }, 1000);
-    });
-  })
+function laporanTerbayarController($scope, SuratBayarService, AuthService) {
+	$scope.datas = [];
 
-
-	
+	AuthService.me().then((me) => {
+		$scope.me = me;
+	});
+	SuratBayarService.getLaporanTerbayar().then((x) => {
+		$scope.datas = x;
+	});
 
 	$scope.sumGroup = function(datas) {
 		var total = 0;
@@ -389,8 +389,50 @@ function laporanTerbayarController($scope, SuratBayarService,AuthService) {
 			total += x.jumlah;
 		});
 		return total;
-  };
-  
+	};
 
-  
+	
+	$scope.print=function(){
+		setTimeout((x) => {
+			window.print();
+		}, 500);
+	}
+}
+
+
+function adminLaporanController($scope, SuratBayarService){
+	$scope.Datas=[];
+	$scope.Init=function(param){
+		SuratBayarService.get().then(res=>{
+			if(res && res.length>0)
+			{
+				res.forEach(x=>{
+					if(param=='kadaluwarsa' && x.status=='kadaluwarsa'){
+						$scope.Datas.push(x);
+					}
+					if(param=='aktif' && x.status=='aktif'){
+						$scope.Datas.push(x);
+					}
+				})
+				
+				
+			}
+		})
+		
+	}
+	
+
+	$scope.print=function(){
+		setTimeout((x) => {
+			window.print();
+		}, 500);
+	}
+
+	$scope.sumGroup = function(datas) {
+		var total = 0;
+		datas.forEach((x) => {
+			total += x.jumlah;
+		});
+		return total;
+	};
 }

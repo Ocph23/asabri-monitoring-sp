@@ -15,24 +15,25 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.8",
-    "angular-filter": "0.5.17",
     "angular-animate": "1.7.8",
     "angular-aria": "1.7.8",
     "angular-datatables": "^0.6.2",
+    "angular-filter": "0.5.17",
     "angular-local-storage": "^0.7.1",
     "angular-material": "1.1.19",
     "angular-messages": "1.7.8",
     "angular-route": "1.7.8",
+    "animate.css": "^3.7.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "jsonwebtoken": "^8.3.0",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.2",
+    "sequelize": "^4.39.0",
     "swangular": "^1.4.3",
-    "terbilang-js": "^1.0.1",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^8.3.0",
-    "sequelize": "^4.39.0"
+    "terbilang-js": "^1.0.1"
   }
 }
