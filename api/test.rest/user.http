@@ -6,20 +6,21 @@ POST https://asabrimonitoring.herokuapp.com/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
-    "userName": "ocph23",
-    "password": "Sony@77"
+    "userName": "syaiful",
+   
+    "password": "syaiful"
 }
 
 
 ###
 
-POST http://localhost:3000/api/auth/register HTTP/1.1
+POST https://asabrimonitoring.herokuapp.com/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
-    "userName": "ocph23",
-    "email":"ocph23@gmail.com",
-    "password": "Sony@77",
+    "userName": "syaiful",
+     "email": "syaiful@gmail.com",
+    "password": "amry69",
     "roles":"admin"
 }
 

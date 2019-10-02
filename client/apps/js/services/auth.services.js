@@ -36,7 +36,6 @@ function AuthService($http, $q, StorageService, $state, helperServices) {
         helperServices.errorHandler(err);
       }
     );
-
     return def.promise;
   }
 
