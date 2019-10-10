@@ -1,0 +1,36 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak style="min-width: 400px">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Tambah Asuransi/Klaim</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-content layout-padding style="padding: 20px;">
+                <md-input-container class="md-block">
+                    <label>Kode Asuransi</label>
+                    <input ng-model="model.kodeAsuransi">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Nama Asuransi</label>        
+                    <input ng-model="model.namaAsuransi">
+                </md-input-container>
+                <label >Kategori Manfaat</label> </br>
+                <input style="margin-top: 10px !important;" type="checkbox" ng-model="model.pilihan">  Tunggal
+            </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Batal
+            </md-button>
+            <md-button ng-click="answer(model)">
+               Simpan
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

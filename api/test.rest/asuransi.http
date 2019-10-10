@@ -1,0 +1,69 @@
+get http://localhost:3000/api/asuransi HTTP/1.1
+
+###
+
+
+
+DELETE  http://localhost:3000/api/asuransi/3 HTTP/1.1
+###
+
+
+
+DELETE  http://localhost:3000/api/asuransi/manfaat/3 HTTP/1.1
+###
+
+
+
+
+
+Put  http://localhost:3000/api/asuransi/manfaat/2 HTTP/1.1
+content-type: application/json
+
+{
+    "idjenisManfaat": 2,
+    "idjenisAsuransi":2,
+        "namaManfaat": "Kepala Keluarga SAja",
+        "kodeManfaat": "KKK"
+}
+
+###
+
+
+
+
+Put  http://localhost:3000/api/asuransi/2 HTTP/1.1
+content-type: application/json
+
+{
+    "idjenisAsuransi": 2,
+    "namaAsuransi": "Jaminan Kematian",
+    "kodeAsuransi": "JKM"
+}
+
+###
+
+
+
+
+Post  http://localhost:3000/api/asuransi HTTP/1.1
+content-type: application/json
+
+{
+    "namaAsuransi": "Jaminan Kematian",
+    "kodeAsuransi": "JKM"
+}
+
+###
+
+
+
+Post  http://localhost:3000/api/asuransi/manfaat HTTP/1.1
+content-type: application/json
+
+{
+        "idjenisAsuransi":4,
+        "namaManfaat": "Kepala SAja",
+        "kodeManfaat": "KKK"
+}
+
+###

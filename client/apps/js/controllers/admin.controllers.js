@@ -9,7 +9,8 @@ angular
 	.controller('adminAddSuratBayarController', adminAddSuratBayarController)
 	.controller('adminEditSuratBayarController', adminEditSuratBayarController)
 	.controller('laporanTerbayarController', laporanTerbayarController)
-	.controller('adminLaporanController',adminLaporanController);
+	.controller('adminAsuransiController', adminAsuransiController)
+	.controller('adminLaporanController', adminLaporanController);
 
 function adminController($scope, $rootScope, helperServices, $timeout, $mdSidenav, $log) {
 	$rootScope.spinner = helperServices.spinner;
@@ -271,21 +272,24 @@ function adminSuratBayarController($scope, $rootScope, SuratBayarService, helper
 		$scope.datas = x;
 		$rootScope.spinner = false;
 	});
-	$scope.print=function(){
+	$scope.print = function() {
 		setTimeout((x) => {
 			window.print();
 		}, 500);
-	}
+	};
 }
 
-function adminAddSuratBayarController($scope, message, BankService, helperServices, SuratBayarService, $state) {
-	$scope.asuransi = helperServices.asuransi;
+function adminAddSuratBayarController($scope, message, BankService, AsuransiService, helperServices, SuratBayarService, $state) {
+
 	$scope.statusPenerimas = helperServices.statusPenerima;
 	$scope.model = {};
-	BankService.get().then((banks) => {
-		$scope.banks = banks;
+	$scope.model.jumlah=0;
+	AsuransiService.get().then(x=>{
+		$scope.asuransi =x;
+		BankService.get().then((banks) => {
+			$scope.banks = banks;
+		});
 	});
-
 	$scope.save = function(data) {
 		data.status = 'aktif';
 		SuratBayarService.post(data).then((res) => {
@@ -300,21 +304,39 @@ function adminAddSuratBayarController($scope, message, BankService, helperServic
 		});
 	};
 
-	$scope.getTerbilang = function(data) {
-		if (data && data > 0) {
-			return terbilang(data) + ' Rupiah';
-		} else {
-			return '';
+	$scope.getTerbilang = function(data, items) {
+		data=0;
+		if(items && items.length>0)
+		{
+			items.forEach(x=>{
+				if(x.nilai)
+					data+=x.nilai;
+			})
+			$scope.model.jumlah=data;
+			if (data > 0) {
+				return terbilang(data) + ' Rupiah';
+			} else {
+				return '';
+			}
 		}
+
+		
 	};
+	$scope.ManfaatTunggal =function(data){
+		if(data){
+			data.forEach(x=>{x.nilai=0});
+		}
+	}
 
 	$scope.onChangeStatusPenerima = function(model) {
-		if (model.penerima) {
-			model.statusPenerima = 'Peserta';
-			model.namaPenerima = model.nasabah.nama;
-		} else {
-			model.statusPenerima = 'Wali';
-		}
+		setTimeout(() => {
+			model.ktpWali = '';
+			if (model.statusPenerima === 'Peserta') {
+				model.namaPenerima = model.nasabah.nama;
+			} else if (model.namaPenerima == model.nasabah.nama) {
+				model.namaPenerima = '';
+			}
+		}, 200);
 	};
 }
 
@@ -326,20 +348,41 @@ function adminEditSuratBayarController(
 	helperServices,
 	$rootScope,
 	SuratBayarService,
-	BankService
+	BankService,AsuransiService
 ) {
 	var id = $stateParams.id;
 	$rootScope.spinner = true;
-	$scope.asuransi = helperServices.asuransi;
 	$scope.statusPenerimas = helperServices.statusPenerima;
-	BankService.get().then((banks) => {
-		$scope.banks = banks;
-		SuratBayarService.getById(id).then((x) => {
-			x.pembayaran = null;
-			$scope.model = x;
-			$rootScope.spinner = false;
+	$scope.asuransi=[];
+	AsuransiService.get().then(x=>{
+		angular.copy(x,$scope.asuransi);
+		BankService.get().then((banks) => {
+			$scope.banks = banks;
+			SuratBayarService.getById(id).then((x) => {
+				x.pembayaran = null;
+				
+				var asu = $scope.asuransi.find(n=>n.idjenisAsuransi==x.asuransi.idjenisAsuransi);
+				if(asu)
+				{
+					$scope.asuransi.splice(asu,1);
+					$scope.asuransi.push(x.asuransi);
+					
+					if(x.asuransi.pilihan)
+					{
+						x.asuransi.manfaat.forEach(m=>{
+							if(m.nilai>0)
+							{
+								x.asuransi.selected=m;
+							}
+						})
+					}
+				}
+				$scope.model = x;
+				$rootScope.spinner = false;
+			});
 		});
 	});
+	
 
 	$scope.save = function(data) {
 		SuratBayarService.put(data).then((res) => {
@@ -348,11 +391,14 @@ function adminEditSuratBayarController(
 	};
 
 	$scope.onChangeStatusPenerima = function(model) {
-		if (model.statusPenerima === 'Peserta') {
-			model.namaPenerima = model.nasabah.nama;
-		} else if (model.namaPenerima == model.nasabah.nama) {
-			model.namaPenerima = '';
-		}
+		setTimeout(() => {
+			model.ktpWali = '';
+			if (model.statusPenerima === 'Peserta') {
+				model.namaPenerima = model.nasabah.nama;
+			} else if (model.namaPenerima == model.nasabah.nama) {
+				model.namaPenerima = '';
+			}
+		}, 200);
 	};
 
 	$scope.getPembayaran = function(params) {
@@ -364,69 +410,206 @@ function adminEditSuratBayarController(
 		});
 	};
 
-	$scope.getTerbilang = function(data) {
-		if (data && data > 0) {
-			return terbilang(data) + ' Rupiah';
-		} else {
-			return '';
+	$scope.getTerbilang = function(data, items) {
+		data=0;
+		if(items && items.length>0)
+		{
+			items.forEach(x=>{
+				if(x.nilai)
+					data+=x.nilai;
+			})
+			$scope.model.jumlah=data;
+			if (data > 0) {
+				return terbilang(data) + ' Rupiah';
+			} else {
+				return '';
+			}
 		}
+
+		
 	};
 }
 
-function laporanTerbayarController($scope, SuratBayarService, AuthService) {
+function laporanTerbayarController($scope, SuratBayarService,helperServices, AuthService, AsuransiService) {
+	$scope.datas = [];
+	$scope.bulans = helperServices.bulans;
+	$scope.asuransis =[];
+	$scope.tanggal=new Date();
+	 
+	AuthService.me().then(me => {
+		$scope.me = me;
+		AsuransiService.get().then(asuransi=>{
+			$scope.asuransis=asuransi;
+			SuratBayarService.getLaporanTerbayar().then((x) => {
+				$scope.datas = x.map((data) => {
+					data.bulan = new Date(data.tanggalBayar).getMonth();
+					if(data.pilihan){
+						data.manfaat.forEach(m=>{
+							if(m.nilai>0)
+							{
+								data.manfaatSelected=m;
+							}
+						})
+					}
+					return data;
+				});
+			});
+		})
+	});
+	
+
+	$scope.sumGroup = function(datas) {
+		try {
+			var total = 0;
+			datas.forEach((x) => {
+				if (x.bulan == $scope.bulan.Id && x.idjenisAsuransi == $scope.asuransi.idjenisAsuransi) total += x.jumlah;
+			});
+			return total;
+		} catch (error) {
+			return 0;
+		}
+	};
+
+	$scope.print = function() {
+		setTimeout((x) => {
+			window.print();
+		}, 500);
+	};
+}
+
+function adminAsuransiController($scope,message, AsuransiService, $mdDialog) {
 	$scope.datas = [];
 
-	AuthService.me().then((me) => {
-		$scope.me = me;
-	});
-	SuratBayarService.getLaporanTerbayar().then((x) => {
+	AsuransiService.get().then((x) => {
 		$scope.datas = x;
 	});
 
-	$scope.sumGroup = function(datas) {
-		var total = 0;
-		datas.forEach((x) => {
-			total += x.jumlah;
-		});
-		return total;
+	$scope.changeAsuransi = function(ev, data) {
+		$mdDialog
+		.show({
+			locals: {
+				dataToPass: data
+			},
+			controller: DialogController,
+			templateUrl: '../client/apps/views/admin/admin-add-asuransi-template.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose: false,
+			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		})
+		.then(
+			function(model) {
+				if(model.pilihan===undefined)
+				{
+					model.pilihan=false;
+				}
+				if (model.idjenisAsuransi) {
+					AsuransiService.put(model).then(
+						(x) => {
+							message.info('Edit Data');
+						},
+						(err) => {}
+					);
+				} else {
+					AsuransiService.post(model).then(
+						(x) => {
+							message.info('Edit Data');
+						},
+						(err) => {}
+					);
+				}
+			},
+			function() {
+				$scope.status = 'You cancelled the dialog.';
+			}
+		);
+
+
+	};
+	$scope.changeManfaat = function(ev, data, id) {
+		$mdDialog
+		.show({
+			locals: {
+				dataToPass: data
+			},
+			controller: DialogController,
+			templateUrl: '../client/apps/views/admin/admin-add-manfaat-template.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose: false,
+			fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		})
+		.then(
+			function(model) {
+			
+				if (model.idjenisManfaat) {
+					AsuransiService.putManfaat(model).then(
+						(x) => {
+							message.info('Edit Data');
+						},
+						(err) => {}
+					);
+				} else {
+					model.idjenisAsuransi=id;
+					AsuransiService.postManfaat(model).then(
+						(x) => {
+							message.info('Edit Data');
+						},
+						(err) => {}
+					);
+				}
+			},
+			function() {
+				$scope.status = 'You cancelled the dialog.';
+			}
+		);
+
+
 	};
 
-	
-	$scope.print=function(){
-		setTimeout((x) => {
-			window.print();
-		}, 500);
-	}
-}
-
-
-function adminLaporanController($scope, SuratBayarService){
-	$scope.Datas=[];
-	$scope.Init=function(param){
-		SuratBayarService.get().then(res=>{
-			if(res && res.length>0)
-			{
-				res.forEach(x=>{
-					if(param=='kadaluwarsa' && x.status=='kadaluwarsa'){
-						$scope.Datas.push(x);
-					}
-					if(param=='aktif' && x.status=='aktif'){
-						$scope.Datas.push(x);
-					}
-				})
-				
-				
-			}
+	$scope.removeAsuransi = function(event, data) {
+		message.dialog("Hapus Data ....").then(x=>{
+			AsuransiService.remove(data).then(x=>{
+				message.info("Berhasil Hapus Data");
+			})
 		})
 		
-	}
-	
+	};
+	$scope.removeManfaat = function(event, data) {
 
-	$scope.print=function(){
+
+		message.dialog("Hapus Data ....").then(x=>{
+			AsuransiService.removeManfaat(data).then(x=>{
+				message.info("Berhasil Hapus Data");
+
+			})
+		})
+		
+	};
+}
+
+function adminLaporanController($scope, SuratBayarService) {
+	$scope.Datas = [];
+	$scope.Init = function(param) {
+		SuratBayarService.get().then((res) => {
+			if (res && res.length > 0) {
+				res.forEach((x) => {
+					if (param == 'kadaluwarsa' && x.status == 'kadaluwarsa') {
+						$scope.Datas.push(x);
+					}
+					if (param == 'aktif' && x.status == 'aktif') {
+						$scope.Datas.push(x);
+					}
+				});
+			}
+		});
+	};
+
+	$scope.print = function() {
 		setTimeout((x) => {
 			window.print();
 		}, 500);
-	}
+	};
 
 	$scope.sumGroup = function(datas) {
 		var total = 0;

@@ -15,7 +15,8 @@ angular
 		'bank.service',
 		'mitraBayar.service',
 		'sp.service',
-    'angular.filter',
+		'asuransi.service',
+		'angular.filter',
 		'app.conponent',
 
 		'auth.controllers',
@@ -54,7 +55,6 @@ angular
 
 		$mdThemingProvider.theme('default').primaryPalette('amazingPaletteName');
 	})
-
 	.filter('bytetobase', function() {
 		return function(buffer) {
 			var binary = '';

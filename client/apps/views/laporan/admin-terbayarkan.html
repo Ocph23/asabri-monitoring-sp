@@ -3,41 +3,59 @@
 </div>
 
 <div class="title-header">
-
-    <h1>Laporan Surat Pembayaran Terbayarkan</h1>
+    <h1>Laporan Pembayaran Manfaat Asuransi Asabri</h1>
+    <h1 class="just-print">{{asuransi.namaAsuransi}} ({{asuransi.kodeAsuransi}})</h1>
+    <h1 class="just-print">Yang Telah Dibayarkan di unit kerja mitra bayar</h1>
+    <h1 class="just-print">Wilayah kantor cabang jayapura</h1>
+    <h1 class="just-print">Periode {{bulan.Name}} 2019</h1>
     <hr class="just-print" />
 </div>
-<div class="fab-right">
-    <md-button class="md-fab md-info " aria-label="Use Android" ng-click="print()">
+<div class="fab-right" style="margin-bottom: 20px; right: 0px">
+    <label style="min-width: 200px">Jenis Asuransi</label>
+    <select style="margin-right: 20px; width: 200px;height:30px" ng-model="asuransi"
+        ng-options="item as item.namaAsuransi for item in asuransis track by item.kodeAsuransi">
+    </select>
+    <label style="min-width: 150px">Periode</label>
+    <select style="width: 150px;height:30px" ng-options="item as item.Name for item in bulans track by item.Id"
+        ng-model="bulan">
+    </select>
+    <md-button ng-show="asuransi && bulan" class="md-fab md-info " aria-label="Use Android" ng-click="print()">
         <md-icon md-font-icon="fa fa-print"></md-icon>
     </md-button>
+
 </div>
 
 <table class="table table-border" cellspacing="1" width="100%">
     <thead>
         <tr style="background-color: rgb(209, 207, 207)">
-            <th>No</th>
-            <th>Tanggal Bayar</th>
-            <th>Kode Bayar</th>
-            <th>Peserta/Penerima</th>
-            <th>Jenis</th>
-            <th>Jumlah Dibayar</th>
-            <th>Nomor SP</th>
-            <th>NTB</th>
-            <th>Kode MB </th>
-            <th>Nama MB</th>
+            <th rowspan="2">No</th>
+            <th rowspan="2">Tanggal Bayar</th>
+            <th rowspan="2">Kode Bayar</th>
+            <th rowspan="2">Peserta/Penerima</th>
+            <th ng-if="!asuransi.pilihan" colspan="{{asuransi.manfaat.length}}">Jenis</th>
+            <th ng-if="asuransi.pilihan">Jenis</th>
+            <th rowspan="2">Jumlah Dibayar</th>
+            <th rowspan="2">Nomor SP</th>
+            <th rowspan="2">NTB</th>
+            <th rowspan="2">Kode MB </th>
+            <th rowspan="2">Nama MB</th>
+        </tr>
+        <tr ng-if="!asuransi.pilihan"  style="background-color: rgb(209, 207, 207)">
+            <th ng-if="!asuransi.pilihan" ng-repeat="item in asuransi.manfaat">{{item.kodeManfaat}}</th>
         </tr>
     </thead>
-    <tbody ng-repeat="(key, value) in datas | groupBy:'namaBank'">
+    <tbody ng-if="asuransi"
+        ng-repeat="(key, value) in datas | filter:{bulan:bulan.Id, idjenisAsuransi:asuransi.idjenisAsuransi} | groupBy:'namaBank'">
         <tr style="background-color: rgb(230, 228, 228)">
-            <td colspan="10">{{key}}</td>
+            <td colspan="{{asuransi.manfaat.length + 10}}">{{key}}</td>
         </tr>
         <tr ng-repeat="data in value">
             <td>{{$index+1}}</td>
             <td>{{data.tanggalBayar|date:'dd-MM-yyyy'}}</td>
             <td>{{data.kodeBayar}}</td>
             <td>{{data.namaPenerima}}</td>
-            <td>{{data.jenisAsuransi}}</td>
+            <td ng-if="!asuransi.pilihan" ng-repeat="item in data.manfaat">{{item.nilai|number}}</td>
+            <td ng-if="asuransi.pilihan">{{data.manfaatSelected.kodeManfaat}}</td>
             <td style="text-align: right">Rp. {{data.jumlah|number}}</td>
             <td>{{data.nomorSurat}}</td>
             <td>{{data.nomorBuktiBayar}}</td>
@@ -45,16 +63,59 @@
             <td>{{data.namaMitraBayar}}</td>
         </tr>
         <tr style="margin-bottom: 15px !important; background-color: rgb(247, 245, 245)">
-            <td colspan="5">Total {{key}}</td>
+            <td ng-if="!asuransi.pilihan" colspan="{{asuransi.manfaat.length + 4}}">Total {{key}}</td>
+            <td ng-if="asuransi.pilihan" colspan="5">Total {{key}}</td>
             <td style="text-align: right">Rp.{{sumGroup(value)|number}}</td>
             <td colspan="5"></td>
         </tr>
     </tbody>
     <tfoot>
         <tr style="background-color: rgb(209, 207, 207)">
-            <td colspan="5">Total {{key}}</td>
+            <td ng-if="!asuransi.pilihan" colspan="{{asuransi.manfaat.length + 4}}">Total {{key}}</td>
+            <td ng-if="asuransi.pilihan" colspan="5">Total {{key}}</td>
             <td style="text-align: right">Rp.{{sumGroup(datas)|number}}</td>
             <td colspan="5"></td>
         </tr>
     </tfoot>
 </table>
+
+
+
+
+<div id="ttd">
+    Jayapura , {{tanggal|date:'dd MMMM yyyy'}}
+    
+    <div id="ttdName">
+        Budi Sanjaya Yang Selalu, S.Pd, MP.d
+    </div>
+    Kepala Kantor
+</div>
+
+
+
+
+<style>
+    th,
+    td {
+        border: 1px rgb(189, 188, 188) solid;
+        padding: 0px !important;
+        vertical-align: middle;
+    }
+
+    th {
+        text-align: center !important;
+    }
+
+    #ttd{
+        margin: 20px;
+        position: absolute;
+        padding: 20px;
+        right: 10px;
+        text-align: center;
+    }
+    #ttdName{
+        margin-top: 75px;
+        text-decoration: underline;
+    }
+
+</style>

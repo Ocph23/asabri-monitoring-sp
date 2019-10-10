@@ -23,6 +23,7 @@ angular
         controller: "homeController",
         templateUrl: "../client/apps/views/home.html"
       })
+    
       .state("about", {
         // we'll get to this in a bit
       })
@@ -33,6 +34,13 @@ angular
         url: "/admin",
         controller: "adminController",
         templateUrl: "../client/apps/views/admin/admin.html"
+      })
+
+      .state("admin-asuransi", {
+        url: "/asuransi",
+        parent: "admin",
+        controller: "adminAsuransiController",
+        templateUrl: "../client/apps/views/admin/admin-asuransi.html"
       })
 
       .state("admin-home", {

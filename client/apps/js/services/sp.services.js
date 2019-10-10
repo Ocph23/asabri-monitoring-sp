@@ -6,7 +6,6 @@ angular
 function SuratBayarService($q, $http,helperServices,AuthService) {
   var instance = false;
   var datas = [];
-  get();
 
   function get() {
     var def = $q.defer();

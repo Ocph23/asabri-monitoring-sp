@@ -4,7 +4,8 @@ const dbContext = {
   Roles: require('./role.db'),
   Bank: require('./bank.db'),
   Mitra: require('./mitra.db'),
-  SP: require('./sp.db')
+  SP: require('./sp.db'),
+  Asuransi:require('./asuransi.db')
 
 };
 

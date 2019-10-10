@@ -113,6 +113,8 @@ router.get("/me", [authJwt.verifyToken],async (req,res)=>{
       {
          var result =await contextDb.Users.getMitraBayarUser(req.userId);
          res.status(200).json(result);
+      }else{
+        res.status(200).json(null);
       }
 
 });

@@ -7,12 +7,15 @@ router.get("/", async (req, res) => {
   try {
     const data = await db.SP.get();
     data.forEach(async element => {
+      element.asuransi= {idjenisAsuransi:element.idjenisAsuransi, namaAsuransi:element.namaAsuransi, kodeAsuransi:element.kodeAsuransi,pilihan:element.pilihan};
+      element.asuransi.manfaat=await db.SP.getManfaat(element.idSuratPembayaran);
       element.nasabah = await db.SP.getNasabagByidsp(element.idSuratPembayaran);
       element.pembayaran = {};
+      element.manfaat = await db.SP.getManfaat(element.idSuratPembayaran)
     });
     setTimeout(x => {
       res.status(200).json(data);
-    }, 3000);
+    }, 100);
   } catch (error) {
     console.log(error);
   }
@@ -23,10 +26,12 @@ router.get("/:id", async (req, res) => {
     var id = req.params["id"];
     if (!id) throw new Error("Data Tidak Ditemukan");
     const data = await db.SP.getById(id);
+    data.asuransi= {idjenisAsuransi:data.idjenisAsuransi, namaAsuransi:data.namaAsuransi, kodeAsuransi:data.kodeAsuransi, pilihan:data.pilihan};
+    data.asuransi.manfaat=await db.SP.getManfaat(data.idSuratPembayaran);
     data.nasabah = await db.SP.getNasabagByidsp(data.idSuratPembayaran);
     setTimeout(x => {
       res.status(200).json(data);
-    }, 2000);
+    }, 100);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -193,9 +198,6 @@ function ValidateSP(param) {
       !param.nasabah.nama ||
       !param.nasabah.pangkat ||
       !param.nasabah.nomorPeserta ||
-      !param.nasabah.tanggalLahir ||
-      !param.nasabah.tanggalSKEP ||
-      !param.nasabah.tanggalPensiun ||
       !param.nasabah.kodeJiwa ||
       !param.nasabah.alamat
     )
@@ -212,15 +214,6 @@ function ValidateSP(param) {
     );
     param.berlakuSampaiTanggal = helper.convertJsonDateToMySqlDate(
       param.berlakuSampaiTanggal
-    );
-    param.nasabah.tanggalLahir = helper.convertJsonDateToMySqlDate(
-      param.nasabah.tanggalLahir
-    );
-    param.nasabah.tanggalSKEP = helper.convertJsonDateToMySqlDate(
-      param.nasabah.tanggalSKEP
-    );
-    param.nasabah.tanggalPensiun = helper.convertJsonDateToMySqlDate(
-      param.nasabah.tanggalPensiun
     );
     return param;
   } catch (err) {

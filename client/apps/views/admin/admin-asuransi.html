@@ -1,0 +1,55 @@
+<h1>Jenis Asuransi/Klaim</h1>
+<div style="position: relative; text-align: right">
+    <md-button class="md-fab md-primary" aria-label="Use Android" ng-click="changeAsuransi($event,null)">
+        <md-icon md-font-icon="fa fa-plus"></md-icon>
+    </md-button>
+</div>
+<table style="background-color: rgb(241, 239, 239)" class="table table-striped" cellspacing="0" width="100%">
+    <thead>
+        <tr style="border: 1px wheat solid">
+            <th>NO</th>
+            <th>Kode Asuransi/Klaim</th>
+            <th>Nama Asuransi</th>
+            <th>Kategori Manfaat</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="data in datas">
+        <tr style="border: 1px wheat solid">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ data.kodeAsuransi }}</td>
+            <td>{{ data.namaAsuransi }}</td>
+            <td><span ng-if="data.pilihan">Tunggal</span><span ng-if="!data.pilihan">Tidak Tunggal</span></td>
+            <td style="text-align: right">
+                <a href="" ng-click="changeAsuransi($event,data)"><i class="fa fa-edit" md-colors="{color: 'amber'}"></i></a>
+                <a href="" ng-click="removeAsuransi($event,data)"><i class="fa fa-remove" style="color: red"></i></a>
+                <a href="" ng-click="changeManfaat($event,null,data.idjenisAsuransi)"><i class="fa fa-plus"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="background-color: white; padding: 0px 0px 10px 0px !important">
+                <table style="border-bottom: wheat 1px solid;" class="table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr style="background-color: wheat">
+                            <th style="width: 30%">Kode Manfaat</th>
+                            <th style="width: 30%">Nama Manfaat</th>
+                            <th style="text-align:right">
+                               
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.manfaat">
+                            <td>{{item.kodeManfaat}}</td>
+                            <td>{{item.namaManfaat}}</td>
+                            <td style="text-align: right">
+                                <a href="" ng-click="changeManfaat($event,item)"><i class="fa fa-edit" md-colors="{color: 'amber'}"></i></a>
+                                <a href="" ng-click="removeManfaat($event,item)"><i class="fa fa-remove" style="color: red"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

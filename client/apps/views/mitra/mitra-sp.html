@@ -42,27 +42,14 @@
                     <input ng-model="model.nasabah.nama">
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Nomor Nasabah</label>
+                    <label>NRP/NIP/KTPA</label>
                     <input ng-model="model.nasabah.nomorPeserta">
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Pangkat/GOL</label>
                     <input ng-model="model.nasabah.pangkat">
                 </md-input-container>
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block">
-                        <label>Tanggal Lahir</label>
-                        <input readonly value="{{model.nasabah.tanggalLahir|date:'dd MMM yyyy'}}">
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>Tanggal SKEP</label>
-                        <input readonly value="{{model.nasabah.tanggalSKEP|date:'dd MMM yyyy'}}">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Tanggal Pensiun</label>
-                        <input readonly value="{{model.nasabah.tanggalPensiun|date:'dd MMM yyyy'}}">
-                    </md-input-container>
-                </div>
+               
 
                 <md-input-container class="md-block">
                     <label>Kode Jiwa</label>
@@ -86,6 +73,10 @@
                     <input ng-model="model.namaPenerima">
                 </md-input-container>
                 <md-input-container class="md-block">
+                    <label>KTP</label>
+                    <input ng-model="model.ktpWali">
+                </md-input-container>
+                <md-input-container class="md-block">
                         <label>Nomor Rekening</label>
                         <input ng-model="model.noRekening">
                     </md-input-container>
@@ -104,7 +95,7 @@
                     Data Pembayaran
                 </div>
                 <md-input-container class="md-block">
-                    <label>Nomor Bukti Bayar</label>
+                    <label>Nomor Transaksi Bayar</label>
                     <input ng-model="model.pembayaran.nomorBuktiBayar">
                 </md-input-container>
                 <md-input-container class="md-block">

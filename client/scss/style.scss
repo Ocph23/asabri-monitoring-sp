@@ -354,6 +354,7 @@ md-menu {
     h1 {
       text-transform: uppercase;
       text-shadow: 1px 2px 3px silver;
+      margin-bottom: 0px !important;
     }
   }
 
@@ -427,7 +428,6 @@ md-menu {
 //animation
 #id-bukti {
   transition: all linear 2s;
-  background-color: rgb(232, 238, 240);
   height: 100%;
   width: 100%;
   top: 0;

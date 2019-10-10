@@ -9,16 +9,16 @@
         </md-card-title>
         <md-card-content>
           <form ng-submit="login(user)">
-            <md-content class="md-no-momentum">
-              <md-input-container md-no-float class="md-block">
+            <md-content class="md-no-momentum active">
+              <md-input-container class="md-block">
                 <md-icon md-font-icon="fa fa-user"></md-icon>
                 <label>User Name</label>
-                <input ng-model="user.userName" type="text" aria-label="userName">
+                <input class="active" placeholder="User Name" ng-model="user.userName" type="text" aria-label="userName">
               </md-input-container>
-              <md-input-container md-no-float class="md-block">
+              <md-input-container class="md-block">
                 <md-icon md-font-icon="fa fa-lock"></md-icon>
                 <label>Password</label>
-                <input ng-model="user.password" type="password" aria-label="Password">
+                <input class="active" placeholder="Password" ng-model="user.password" type="password" aria-label="Password">
               </md-input-container>
             </md-content>
             <md-button class="md-raised md-primary" ng-click="login(user)">Login</md-button>
@@ -30,15 +30,3 @@
         </md-card-actions>
       </md-card>
 </div>
-
-<script>
-  $('input' ).each(function (element, i) {
-      if ((element.value !== undefined && element.value.length > 0)) {
-          $(this).siblings('input').addClass('active');
-      }
-      else {
-          $(this).siblings('input').removeClass('active');
-      }
-  });
-  </script>
-  
