@@ -6,8 +6,8 @@ angular.module("helper.service",[])
 
 function helperServices (message){
     var service={};
-   service.url="http://localhost:3000";
-   //service.url="https://asabrimonitoring.herokuapp.com";
+   //service.url="http://localhost:3000";
+   service.url="https://asabrimonitoring.herokuapp.com";
 
    service.statusPenerima=["Peserta","Wali"];
     service.bulans=[{Id:0, Name:"Januari"},
