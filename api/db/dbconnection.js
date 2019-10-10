@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   user: "asabridb"
 }); 
 
-// //local
+//local
 // const pool = mysql.createPool({
 //   connectionLimit: 10,
 //  // host:'den1.mysql1.gear.host',

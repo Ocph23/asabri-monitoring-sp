@@ -86,7 +86,7 @@ db.getById = (id) => {
 db.insertAsuransi = (param) => {
 	return new Promise((resolve, reject) => {
 		pool.query('insert into jenisAsuransi (namaAsuransi,kodeAsuransi,pilihan) values(?,?,?)', 
-		[ param.namaAsuransi, param.kodeAsuransi,pilihan ], (err, result) => {
+		[ param.namaAsuransi, param.kodeAsuransi,param.pilihan ], (err, result) => {
 			if (err) {
 				return reject(err);
 			}

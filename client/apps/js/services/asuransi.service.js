@@ -65,6 +65,10 @@ function AsuransiService($q, $http, helperServices, AuthService) {
     }).then(
       x => {
         var dataInCollection = datas.find(x => x.idjenisAsuransi == data.idjenisAsuransi);
+        if(!dataInCollection.manfaat)
+        {
+          dataInCollection.manfaat=[];
+        }
         dataInCollection.manfaat.push(x.data);
         def.resolve(x.data);
       },
