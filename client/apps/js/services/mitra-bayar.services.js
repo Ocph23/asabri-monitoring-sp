@@ -70,8 +70,8 @@ function MitraBayarService($q, $http, helperServices, AuthService) {
           if (dataInCollection) {
             dataInCollection.nama = data.nama;
             dataInCollection.kode = data.kode;
-            dataInCollection.kode = data.email;
-            dataInCollection.kode = data.alamat;
+            dataInCollection.email = data.email;
+            dataInCollection.alamat = data.alamat;
             def.resolve(data);
           } else {
             def.resolve(data);

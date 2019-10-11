@@ -61,26 +61,27 @@ function adminController($scope, $rootScope, helperServices, $timeout, $mdSidena
 	}
 }
 
-function adminHomeController($scope, $state, $mdDialog) {
-	$scope.showAdvanced = function(ev) {
-		$mdDialog
-			.show({
-				controller: DialogController,
-				templateUrl: '../client/apps/views/admin/admin-add-petugas.template.html',
-				parent: angular.element(document.body),
-				targetEvent: ev,
-				clickOutsideToClose: false,
-				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-			})
-			.then(
-				function(answer) {
-					$scope.status = 'You said the information was "' + answer + '".';
-				},
-				function() {
-					$scope.status = 'You cancelled the dialog.';
-				}
-			);
-	};
+function adminHomeController($scope, $state, $mdDialog, SuratBayarService) {
+	$scope.terbayarkan=0;
+	$scope.aktif=0;
+	$scope.semua=0;
+	$scope.kadaluwarsa=0;
+	SuratBayarService.get().then(x=>{
+		x.forEach(x=>{
+			$scope.semua++;
+			if(x.status==="terbayar"){
+				$scope.terbayarkan++;
+			}
+			if(x.status==="aktif"){
+				$scope.aktif++;
+			}
+			if(x.status==="kadaluwarsa"){
+				$scope.kadaluwarsa++;
+			}
+		})
+
+
+	})
 }
 
 function adminBankController($scope, $state, message, $mdDialog, BankService) {
@@ -223,6 +224,7 @@ function adminMitraBayarController(
 			})
 			.then(
 				function(model) {
+					model.idBank=model.bank.idBank;
 					if (model.idMitraBayar) {
 						MitraBayarService.put(model).then(
 							(x) => {

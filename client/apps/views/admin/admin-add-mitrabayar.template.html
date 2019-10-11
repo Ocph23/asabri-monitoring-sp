@@ -13,8 +13,8 @@
             <md-content layout-padding style="padding: 20px;">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Bank</label>
-                    <md-select ng-model="model.idBank" required>
-                        <md-option ng-repeat="state in banks" value="{{state.idBank}}">
+                    <md-select ng-model="model.bank" required>
+                        <md-option ng-repeat="state in banks" ng-value="state">
                                 {{state.kodeBank}} - {{state.nama}}
                         </md-option>
                     </md-select>
